@@ -30,8 +30,8 @@ public class CreateCourierParameterizedTest {
         this.createCourierDataRequest = new CreateCourierDataRequest(login, password, firstName);
     }
 
-    @Parameterized.Parameters(name = "Testing Data for CreateCourier")
-    public static Object[][] getData() {
+    @Parameterized.Parameters(name = "Testing Data for CreateCourier. Set {index}.")
+    public static Object[][] getCourierData() {
         return new Object[][] {
                 {Config.getUserLogin(), null, Config.getUserFirstName(), false},
                 {null, Config.getUserPassword(), Config.getUserFirstName(), false},
