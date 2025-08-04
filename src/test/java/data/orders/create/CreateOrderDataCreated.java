@@ -1,4 +1,4 @@
-package data.order.create;
+package data.orders.create;
 
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.ResponseSpecification;

@@ -15,6 +15,7 @@ public class Config {
     private static final String deleteCourierEndpoint;
     private static final String createOrderEndpoint;
     private static final String cancelOrderEndpoint;
+    private static final String getOrderEndpoint;
     private static final String wrongUserLogin;
     private static final String wrongUserPassword;
     private static final String scooterColorBlack;
@@ -45,6 +46,7 @@ public class Config {
         deleteCourierEndpoint = properties.getProperty("deleteCourierEndpoint");
         createOrderEndpoint = properties.getProperty("createOrderEndpoint");
         cancelOrderEndpoint = properties.getProperty("cancelOrderEndpoint");
+        getOrderEndpoint = properties.getProperty("getOrderEndpoint");
         wrongUserLogin = properties.getProperty("wrongCourierLogin");
         wrongUserPassword = properties.getProperty("wrongCourierPassword");
         scooterColorGrey = properties.getProperty("scooterColorGrey");
@@ -94,6 +96,10 @@ public class Config {
 
     public static String getCancelOrderEndpoint() {
         return cancelOrderEndpoint;
+    }
+
+    public static String getGetOrderEndpoint() {
+        return getOrderEndpoint;
     }
 
     public static String getWrongUserLogin() {

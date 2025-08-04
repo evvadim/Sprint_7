@@ -1,8 +1,8 @@
-package data.order;
+package data.orders;
 
 import config.Config;
-import data.order.create.CreateOrderDataRequest;
-import data.order.create.scooter.Color;
+import data.orders.create.CreateOrderDataRequest;
+import data.scooter.ScooterColor;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -22,7 +22,7 @@ public class Order {
     private Integer rentTime;
     private String deliveryDate;
     private String comment;
-    private List<Color> color;
+    private List<ScooterColor> scooterColor;
     private final CreateOrderDataRequest createOrderDataRequest;
 
     public Order(CreateOrderDataRequest createOrderDataRequest) {
@@ -35,7 +35,7 @@ public class Order {
         this.rentTime = createOrderDataRequest.getRentTime();
         this.deliveryDate = createOrderDataRequest.getDeliveryDate();
         this.comment = createOrderDataRequest.getComment();
-        this.color = createOrderDataRequest.getColor();
+        this.scooterColor = createOrderDataRequest.getScooterColorList();
     }
 
     RequestSpecification requestSpecification = new RequestSpecBuilder()
@@ -122,12 +122,12 @@ public class Order {
         this.comment = comment;
     }
 
-    public List<Color> getColor() {
-        return color;
+    public List<ScooterColor> getScooterColor() {
+        return scooterColor;
     }
 
-    public void setColor(List<Color> color) {
-        this.color = color;
+    public void setScooterColor(List<ScooterColor> scooterColor) {
+        this.scooterColor = scooterColor;
     }
 
 }

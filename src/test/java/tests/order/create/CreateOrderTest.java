@@ -2,10 +2,10 @@ package tests.order.create;
 
 import config.Config;
 import data.courier.create.CreateCourierDataCreated;
-import data.order.Order;
-import data.order.create.CreateOrderDataCreated;
-import data.order.create.CreateOrderDataRequest;
-import data.order.create.scooter.Color;
+import data.orders.Order;
+import data.orders.create.CreateOrderDataCreated;
+import data.orders.create.CreateOrderDataRequest;
+import data.scooter.ScooterColor;
 import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
@@ -25,7 +25,7 @@ public class CreateOrderTest {
             Config.getOrderRentTime(),
             Config.getOrderDeliveryDate(),
             Config.getOrderComment(),
-            List.of(new Color(Config.getScooterColorBlack())));
+            List.of(new ScooterColor(Config.getScooterColorBlack())));
 
     Order order;
     Integer track;

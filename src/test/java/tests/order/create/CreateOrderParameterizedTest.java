@@ -1,10 +1,10 @@
 package tests.order.create;
 
 import config.Config;
-import data.order.Order;
-import data.order.create.CreateOrderDataCreated;
-import data.order.create.CreateOrderDataRequest;
-import data.order.create.scooter.Color;
+import data.orders.Order;
+import data.orders.create.CreateOrderDataCreated;
+import data.orders.create.CreateOrderDataRequest;
+import data.scooter.ScooterColor;
 import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
@@ -23,7 +23,7 @@ public class CreateOrderParameterizedTest {
     Integer track;
     private final CreateOrderDataRequest createOrderDataRequest;
 
-    public CreateOrderParameterizedTest(List<Color> colorList) {
+    public CreateOrderParameterizedTest(List<ScooterColor> scooterColorList) {
         this.createOrderDataRequest = new CreateOrderDataRequest(Config.getOrderFirstName(),
                 Config.getOrderLastName(),
                 Config.getOrderAddress(),
@@ -32,7 +32,7 @@ public class CreateOrderParameterizedTest {
                 Config.getOrderRentTime(),
                 Config.getOrderDeliveryDate(),
                 Config.getOrderComment(),
-                colorList);
+                scooterColorList);
     }
 
     @Parameterized.Parameters(name = "Testing Data for Create Order. Set {index}.")
