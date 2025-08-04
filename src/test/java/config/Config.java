@@ -14,11 +14,19 @@ public class Config {
     private static final String loginCourierEndpoint;
     private static final String deleteCourierEndpoint;
     private static final String createOrderEndpoint;
+    private static final String cancelOrderEndpoint;
     private static final String wrongUserLogin;
     private static final String wrongUserPassword;
     private static final String scooterColorBlack;
     private static final String scooterColorGrey;
-
+    private static final String orderFirstName;
+    private static final String orderLastName;
+    private static final String orderAddress;
+    private static final Integer orderMetroStation;
+    private static final String orderPhone;
+    private static final Integer orderRentTime;
+    private static final String orderDeliveryDate;
+    private static final String orderComment;
 
     static {
         Properties properties = new Properties();
@@ -36,10 +44,19 @@ public class Config {
         loginCourierEndpoint = properties.getProperty("loginCourierEndpoint");
         deleteCourierEndpoint = properties.getProperty("deleteCourierEndpoint");
         createOrderEndpoint = properties.getProperty("createOrderEndpoint");
+        cancelOrderEndpoint = properties.getProperty("cancelOrderEndpoint");
         wrongUserLogin = properties.getProperty("wrongCourierLogin");
         wrongUserPassword = properties.getProperty("wrongCourierPassword");
         scooterColorGrey = properties.getProperty("scooterColorGrey");
         scooterColorBlack = properties.getProperty("scooterColorBlack");
+        orderFirstName = properties.getProperty("orderFirstName");
+        orderLastName = properties.getProperty("orderLastName");
+        orderAddress = properties.getProperty("orderAddress");
+        orderMetroStation = Integer.valueOf(properties.getProperty("orderMetroStation"));
+        orderPhone = properties.getProperty("orderPhone");
+        orderRentTime = Integer.valueOf(properties.getProperty("orderRentTime"));
+        orderDeliveryDate = properties.getProperty("orderDeliveryDate");
+        orderComment = properties.getProperty("orderComment");
 
     }
 
@@ -75,6 +92,10 @@ public class Config {
         return createOrderEndpoint;
     }
 
+    public static String getCancelOrderEndpoint() {
+        return cancelOrderEndpoint;
+    }
+
     public static String getWrongUserLogin() {
         return wrongUserLogin;
     }
@@ -89,6 +110,38 @@ public class Config {
 
     public static String getScooterColorGrey() {
         return scooterColorGrey;
+    }
+    
+    public static String getOrderFirstName() {
+        return orderFirstName;
+    }
+
+    public static String getOrderLastName() {
+        return orderLastName;
+    }
+
+    public static String getOrderAddress() {
+        return orderAddress;
+    }
+
+    public static Integer getOrderMetroStation() {
+        return orderMetroStation;
+    }
+
+    public static String getOrderPhone() {
+        return orderPhone;
+    }
+
+    public static Integer getOrderRentTime() {
+        return orderRentTime;
+    }
+
+    public static String getOrderDeliveryDate() {
+        return orderDeliveryDate;
+    }
+
+    public static String getOrderComment() {
+        return orderComment;
     }
 
 }

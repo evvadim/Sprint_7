@@ -38,22 +38,24 @@ public class Order {
         this.color = createOrderDataRequest.getColor();
     }
 
-    RequestSpecification createRequestSpecification = new RequestSpecBuilder()
+    RequestSpecification requestSpecification = new RequestSpecBuilder()
             .setBaseUri(Config.getBaseURI())
             .setContentType(ContentType.JSON)
-            .build();
-
-    RequestSpecification deleteRequestSpecification = new RequestSpecBuilder()
-            .setBaseUri(Config.getBaseURI())
-            .setContentType(ContentType.JSON)
-            .addQueryParam("track", "1221")
             .build();
 
     public Response createOrderRequest() {
         return given()
-                .spec(createRequestSpecification)
+                .spec(requestSpecification)
                 .body(createOrderDataRequest)
                 .post(Config.getCreateOrderEndpoint());
+    }
+
+    public void cancelOrderRequest(Integer track) {
+        given()
+                .spec(requestSpecification)
+                .queryParam("track", track)
+                .put(Config.getCancelOrderEndpoint());
+
     }
 
     public String getFirstName() {
