@@ -3,7 +3,7 @@ package data.courier;
 import config.Config;
 import data.courier.create.CreateCourierDataRequest;
 import data.courier.login.LoginCourierDataRequest;
-import data.courier.login.LoginCourierDataResponse;
+import data.courier.login.LoginCourierDataLoggedIn;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -54,12 +54,12 @@ public class Courier {
                 .post(Config.getLoginCourierEndpoint());
     }
 
-    public Response deleteCourierRequest() {
+    public void deleteCourierRequest() {
         Response response = loginCourierRequest();
-        LoginCourierDataResponse loginCourierDataResponse = response.then().extract().as(LoginCourierDataResponse.class);
-        return given()
+        LoginCourierDataLoggedIn loginCourierDataLoggedIn = response.then().extract().as(LoginCourierDataLoggedIn.class);
+        given()
                 .spec(requestSpecification)
-                .delete(String.format("%s/%s", Config.getDeleteCourierEndpoint(), loginCourierDataResponse.getId()));
+                .delete(String.format("%s/%s", Config.getDeleteCourierEndpoint(), loginCourierDataLoggedIn.getId()));
     }
 
     public String getLogin() {

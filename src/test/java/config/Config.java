@@ -13,8 +13,11 @@ public class Config {
     private static final String createCourierEndpoint;
     private static final String loginCourierEndpoint;
     private static final String deleteCourierEndpoint;
+    private static final String createOrderEndpoint;
     private static final String wrongUserLogin;
     private static final String wrongUserPassword;
+    private static final String scooterColorBlack;
+    private static final String scooterColorGrey;
 
 
     static {
@@ -25,15 +28,18 @@ public class Config {
             throw new RuntimeException(exception);
         }
 
-        userLogin = properties.getProperty("userLogin");
-        userPassword = properties.getProperty("userPassword");
-        userFirstName = properties.getProperty("userFirstName");
+        userLogin = properties.getProperty("courierLogin");
+        userPassword = properties.getProperty("courierPassword");
+        userFirstName = properties.getProperty("courierFirstName");
         baseURI = properties.getProperty("baseURI");
         createCourierEndpoint = properties.getProperty("createCourierEndpoint");
         loginCourierEndpoint = properties.getProperty("loginCourierEndpoint");
         deleteCourierEndpoint = properties.getProperty("deleteCourierEndpoint");
-        wrongUserLogin = properties.getProperty("wrongUserLogin");
-        wrongUserPassword = properties.getProperty("wrongUserPassword");
+        createOrderEndpoint = properties.getProperty("createOrderEndpoint");
+        wrongUserLogin = properties.getProperty("wrongCourierLogin");
+        wrongUserPassword = properties.getProperty("wrongCourierPassword");
+        scooterColorGrey = properties.getProperty("scooterColorGrey");
+        scooterColorBlack = properties.getProperty("scooterColorBlack");
 
     }
 
@@ -65,12 +71,24 @@ public class Config {
         return deleteCourierEndpoint;
     }
 
+    public static String getCreateOrderEndpoint() {
+        return createOrderEndpoint;
+    }
+
     public static String getWrongUserLogin() {
         return wrongUserLogin;
     }
 
     public static String getWrongUserPassword() {
         return wrongUserPassword;
+    }
+
+    public static String getScooterColorBlack() {
+        return scooterColorBlack;
+    }
+
+    public static String getScooterColorGrey() {
+        return scooterColorGrey;
     }
 
 }

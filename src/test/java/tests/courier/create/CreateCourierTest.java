@@ -1,8 +1,8 @@
-package tests.create;
+package tests.courier.create;
 
 import config.Config;
 import data.courier.create.CreateCourierDataRequest;
-import data.courier.create.CreateCourierDataResponse;
+import data.courier.create.CreateCourierDataCreated;
 import data.courier.Courier;
 import io.restassured.response.Response;
 import org.junit.After;
@@ -25,10 +25,10 @@ public class CreateCourierTest {
     public void createCourierValidData() {
 
         Response response = courier.createCourierRequest();
-        response.then().spec(CreateCourierDataResponse.responseSpec);
+        response.then().spec(CreateCourierDataCreated.responseSpec);
 
-        CreateCourierDataResponse createCourierDataResponse = response.body().as(CreateCourierDataResponse.class);
-        assertEquals(CreateCourierDataResponse.unexpectedOkErrorMessage, CreateCourierDataResponse.expectedOk, createCourierDataResponse.getOk());
+        CreateCourierDataCreated createCourierDataCreated = response.body().as(CreateCourierDataCreated.class);
+        assertEquals(CreateCourierDataCreated.unexpectedOkErrorMessage, CreateCourierDataCreated.expectedOk, createCourierDataCreated.getOk());
 
     }
 

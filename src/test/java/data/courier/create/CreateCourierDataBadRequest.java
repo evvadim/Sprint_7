@@ -3,8 +3,6 @@ package data.courier.create;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.ResponseSpecification;
 
-import static org.hamcrest.Matchers.lessThan;
-
 public class CreateCourierDataBadRequest {
 
     private String message;

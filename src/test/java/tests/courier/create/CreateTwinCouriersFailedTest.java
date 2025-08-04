@@ -1,9 +1,9 @@
-package tests.create;
+package tests.courier.create;
 
 import config.Config;
 import data.courier.create.CreateCourierDataRequest;
 import data.courier.create.CreateCourierDataConflict;
-import data.courier.create.CreateCourierDataResponse;
+import data.courier.create.CreateCourierDataCreated;
 import data.courier.Courier;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
@@ -23,10 +23,10 @@ public class CreateTwinCouriersFailedTest {
         courier = new Courier(createCourierDataRequest);
 
         Response response = courier.createCourierRequest();
-        response.then().spec(CreateCourierDataResponse.responseSpec);
+        response.then().spec(CreateCourierDataCreated.responseSpec);
 
-        CreateCourierDataResponse createCourierDataResponse = response.body().as(CreateCourierDataResponse.class);
-        assertEquals(CreateCourierDataResponse.unexpectedOkErrorMessage, CreateCourierDataResponse.expectedOk, createCourierDataResponse.getOk());
+        CreateCourierDataCreated createCourierDataCreated = response.body().as(CreateCourierDataCreated.class);
+        assertEquals(CreateCourierDataCreated.unexpectedOkErrorMessage, CreateCourierDataCreated.expectedOk, createCourierDataCreated.getOk());
 
     }
 

@@ -1,12 +1,12 @@
-package tests.login;
+package tests.courier.login;
 
 import config.Config;
 import data.courier.Courier;
-import data.courier.create.CreateCourierDataResponse;
+import data.courier.create.CreateCourierDataCreated;
 import data.courier.login.LoginCourierDataBadRequest;
 import data.courier.login.LoginCourierDataNotFound;
 import data.courier.login.LoginCourierDataRequest;
-import data.courier.login.LoginCourierDataResponse;
+import data.courier.login.LoginCourierDataLoggedIn;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.After;
@@ -41,7 +41,7 @@ public class LoginCourierParameterizedTest {
     }
 
     @Parameterized.Parameters(name = "Testing Data for Login Courier")
-    public static Object[][] getLoginData() throws Exception {
+    public static Object[][] getLoginData() {
         return new Object[][] {
 //                {Config.getUserLogin(), null, false, true},
                 {Config.getUserLogin(), "", false, true},
@@ -62,9 +62,9 @@ public class LoginCourierParameterizedTest {
         Response response = courier.createCourierRequest();
 
         // проверяем создался ли курьер
-        response.then().spec(CreateCourierDataResponse.responseSpec);
-        CreateCourierDataResponse createCourierDataResponse = response.body().as(CreateCourierDataResponse.class);
-        assertEquals(CreateCourierDataResponse.unexpectedOkErrorMessage, CreateCourierDataResponse.expectedOk, createCourierDataResponse.getOk());
+        response.then().spec(CreateCourierDataCreated.responseSpec);
+        CreateCourierDataCreated createCourierDataCreated = response.body().as(CreateCourierDataCreated.class);
+        assertEquals(CreateCourierDataCreated.unexpectedOkErrorMessage, CreateCourierDataCreated.expectedOk, createCourierDataCreated.getOk());
 
         // удаляем созданного курьера
 //        courier.deleteCourierRequest();
@@ -79,9 +79,9 @@ public class LoginCourierParameterizedTest {
         Response response = loginCourierParamData.loginCourierRequest();
 
         if (isCourierShouldBeLoggedIn) {
-            response.then().spec(LoginCourierDataResponse.responseSpec);
-            LoginCourierDataResponse loginCourierDataResponse = response.body().as(LoginCourierDataResponse.class);
-            assertThat(LoginCourierDataResponse.unexpectedNotNullErrorMessage, loginCourierDataResponse.getId(), LoginCourierDataResponse.expectedNotNull);
+            response.then().spec(LoginCourierDataLoggedIn.responseSpec);
+            LoginCourierDataLoggedIn loginCourierDataLoggedIn = response.body().as(LoginCourierDataLoggedIn.class);
+            assertThat(LoginCourierDataLoggedIn.unexpectedNotNullErrorMessage, loginCourierDataLoggedIn.getId(), LoginCourierDataLoggedIn.expectedNotNull);
         } else if (isIncompleteLoginData) {
             response.then().spec(LoginCourierDataBadRequest.responseSpec);
             LoginCourierDataBadRequest loginCourierDataBadRequest = response.then().extract().as(LoginCourierDataBadRequest.class);

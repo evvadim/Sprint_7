@@ -1,9 +1,9 @@
-package tests.login;
+package tests.courier.login;
 
 import config.Config;
 import data.courier.Courier;
 import data.courier.login.LoginCourierDataRequest;
-import data.courier.login.LoginCourierDataResponse;
+import data.courier.login.LoginCourierDataLoggedIn;
 import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
@@ -26,15 +26,15 @@ public class LoginCourierTest {
     public void loginCourierRequest() {
 
         Response response = courier.loginCourierRequest();
-        response.then().spec(LoginCourierDataResponse.responseSpec);
+        response.then().spec(LoginCourierDataLoggedIn.responseSpec);
 
-        LoginCourierDataResponse loginCourierDataResponse = response.body().as(LoginCourierDataResponse.class);
-        assertThat(LoginCourierDataResponse.unexpectedNotNullErrorMessage, loginCourierDataResponse.getId(), LoginCourierDataResponse.expectedNotNull);
+        LoginCourierDataLoggedIn loginCourierDataLoggedIn = response.body().as(LoginCourierDataLoggedIn.class);
+        assertThat(LoginCourierDataLoggedIn.unexpectedNotNullErrorMessage, loginCourierDataLoggedIn.getId(), LoginCourierDataLoggedIn.expectedNotNull);
 
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         courier.deleteCourierRequest();
     }
 

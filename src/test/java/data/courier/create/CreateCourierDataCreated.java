@@ -3,7 +3,7 @@ package data.courier.create;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.ResponseSpecification;
 
-public class CreateCourierDataResponse {
+public class CreateCourierDataCreated {
 
     private boolean ok;
 
@@ -17,11 +17,11 @@ public class CreateCourierDataResponse {
             .expectStatusCode(201)
             .build();
 
-    public CreateCourierDataResponse(boolean ok) {
+    public CreateCourierDataCreated(boolean ok) {
         this.ok = ok;
     }
 
-    public CreateCourierDataResponse() {
+    public CreateCourierDataCreated() {
     }
 
     public boolean getOk() {

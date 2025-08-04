@@ -5,7 +5,7 @@ import io.restassured.specification.ResponseSpecification;
 
 public class CreateCourierDataConflict {
 
-    private int code;
+    private Integer code;
     private String message;
 
     // ожидаем получить
@@ -18,7 +18,7 @@ public class CreateCourierDataConflict {
             .expectStatusCode(409)
             .build();
 
-    public CreateCourierDataConflict(int code, String message) {
+    public CreateCourierDataConflict(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -26,11 +26,11 @@ public class CreateCourierDataConflict {
     public CreateCourierDataConflict() {
     }
 
-    public int getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
