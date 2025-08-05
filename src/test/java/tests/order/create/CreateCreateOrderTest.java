@@ -2,7 +2,7 @@ package tests.order.create;
 
 import config.Config;
 import data.courier.create.CreateCourierDataCreated;
-import data.orders.Order;
+import data.orders.CreateOrder;
 import data.orders.create.CreateOrderDataCreated;
 import data.orders.create.CreateOrderDataRequest;
 import data.scooter.ScooterColor;
@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class CreateOrderTest {
+public class CreateCreateOrderTest {
 
     CreateOrderDataRequest createOrderDataRequest = new CreateOrderDataRequest(Config.getOrderFirstName(),
             Config.getOrderLastName(),
@@ -27,18 +27,18 @@ public class CreateOrderTest {
             Config.getOrderComment(),
             List.of(new ScooterColor(Config.getScooterColorBlack())));
 
-    Order order;
+    CreateOrder createOrder;
     Integer track;
 
     @Before
     public void setUp() {
-        order = new Order(createOrderDataRequest);
+        createOrder = new CreateOrder(createOrderDataRequest);
     }
 
     @Test
     public void createOrder() {
 
-        Response response = order.createOrderRequest();
+        Response response = createOrder.createOrderRequest();
         response.then().spec(CreateCourierDataCreated.responseSpec);
 
         CreateOrderDataCreated createOrderDataCreated = response.body().as(CreateOrderDataCreated.class);
@@ -50,7 +50,7 @@ public class CreateOrderTest {
 
     @After
     public void tearDown() {
-        order.cancelOrderRequest(track);
+        createOrder.cancelOrderRequest(track);
     }
 
 }

@@ -12,7 +12,7 @@ import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
-public class Order {
+public class CreateOrder {
 
     private String firstName;
     private String lastName;
@@ -25,7 +25,7 @@ public class Order {
     private List<ScooterColor> scooterColor;
     private final CreateOrderDataRequest createOrderDataRequest;
 
-    public Order(CreateOrderDataRequest createOrderDataRequest) {
+    public CreateOrder(CreateOrderDataRequest createOrderDataRequest) {
         this.createOrderDataRequest = createOrderDataRequest;
         this.firstName = createOrderDataRequest.getFirstName();
         this.lastName = createOrderDataRequest.getLastName();

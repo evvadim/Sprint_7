@@ -1,7 +1,7 @@
 package tests.order.create;
 
 import config.Config;
-import data.orders.Order;
+import data.orders.CreateOrder;
 import data.orders.create.CreateOrderDataCreated;
 import data.orders.create.CreateOrderDataRequest;
 import data.scooter.ScooterColor;
@@ -17,13 +17,13 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(Parameterized.class)
-public class CreateOrderParameterizedTest {
+public class CreateCreateOrderParameterizedTest {
 
-    Order order;
+    CreateOrder createOrder;
     Integer track;
     private final CreateOrderDataRequest createOrderDataRequest;
 
-    public CreateOrderParameterizedTest(List<ScooterColor> scooterColorList) {
+    public CreateCreateOrderParameterizedTest(List<ScooterColor> scooterColorList) {
         this.createOrderDataRequest = new CreateOrderDataRequest(Config.getOrderFirstName(),
                 Config.getOrderLastName(),
                 Config.getOrderAddress(),
@@ -47,13 +47,13 @@ public class CreateOrderParameterizedTest {
 
     @Before
     public void setUp() {
-        order = new Order(createOrderDataRequest);
+        createOrder = new CreateOrder(createOrderDataRequest);
     }
 
     @Test
     public void createOrder() {
 
-        Response response = order.createOrderRequest();
+        Response response = createOrder.createOrderRequest();
         response.then().spec(CreateOrderDataCreated.responseSpec);
 
         CreateOrderDataCreated createOrderDataCreated = response.body().as(CreateOrderDataCreated.class);
@@ -65,7 +65,7 @@ public class CreateOrderParameterizedTest {
 
     @After
     public void tearDown() {
-        order.cancelOrderRequest(track);
+        createOrder.cancelOrderRequest(track);
     }
 
 }
