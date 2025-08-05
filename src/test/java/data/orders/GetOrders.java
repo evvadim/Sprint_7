@@ -18,12 +18,10 @@ public class GetOrders {
             .setBaseUri(Config.getBaseURI())
             .build();
 
-    public Response getOrderRequest(Integer courierId, Integer limit, Integer page) {
+    public Response getOrderRequest(Integer courierId) {
         return given()
                 .spec(requestSpecification)
                 .queryParam("courierId", courierId)
-                .queryParam("limit", limit)
-                .queryParam("page", page)
                 .get(Config.getGetOrdersEndpoint());
     }
 
@@ -32,13 +30,6 @@ public class GetOrders {
         return given()
                 .spec(requestSpecification)
                 .queryParam("nearestStation", nearestStationAsJson)
-                .get(Config.getGetOrdersEndpoint());
-    }
-
-    public Response getOrderRequest(Integer courierId) {
-        return given()
-                .spec(requestSpecification)
-                .queryParam("courierId", courierId)
                 .get(Config.getGetOrdersEndpoint());
     }
 
