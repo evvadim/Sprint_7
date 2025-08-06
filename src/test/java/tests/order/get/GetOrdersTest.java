@@ -55,9 +55,8 @@ public class GetOrdersTest {
         // количество страниц полностью заполненных заказами страниц
         Integer page = total / limit;
 
-        // количество заказов на последней странице будет равно разности между
-        // общим количеством заказов и произведением количества страниц на количество заказов на странице
-        // total - page * limit
+        // количество заказов на последней странице будет равно
+        // остатку от деления общего количества заказов на лимит
 
         Response responseLastPage = getOrders.getOrderRequest(limit, page);
         GetOrdersDataResponse getOrdersDataResponseLastPage = responseLastPage.body().as(GetOrdersDataResponse.class);
