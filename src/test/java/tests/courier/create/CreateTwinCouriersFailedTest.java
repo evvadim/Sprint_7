@@ -20,6 +20,7 @@ public class CreateTwinCouriersFailedTest {
 
     @Before
     public void setUp() {
+
         courier = new Courier(createCourierDataRequest);
 
         Response response = courier.createCourierRequest();
@@ -38,9 +39,7 @@ public class CreateTwinCouriersFailedTest {
         Response response = twinCourier.createCourierRequest();
         response.then().spec(CreateCourierDataConflict.responseSpec);
         CreateCourierDataConflict createCourierDataConflict = response.body().as(CreateCourierDataConflict.class);
-
         assertEquals(CreateCourierDataConflict.unexpectedErrorMessage, CreateCourierDataConflict.expectedMessage, createCourierDataConflict.getMessage());
-//        assertEquals(CreateCourierDataConflict.unexpectedErrorMessage, "Этот логин уже используется. Попробуйте другой.", createCourierDataConflict.getMessage());
 
     }
 

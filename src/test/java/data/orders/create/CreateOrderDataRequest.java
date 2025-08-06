@@ -110,4 +110,5 @@ public class CreateOrderDataRequest {
     public void setScooterColorList(List<ScooterColor> scooterColorList) {
         this.scooterColorList = scooterColorList;
     }
+
 }

@@ -31,4 +31,5 @@ public class CreateCourierDataBadRequest {
     public void setMessage(String message) {
         this.message = message;
     }
+
 }

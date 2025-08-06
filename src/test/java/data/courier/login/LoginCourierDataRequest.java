@@ -28,4 +28,5 @@ public class LoginCourierDataRequest {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

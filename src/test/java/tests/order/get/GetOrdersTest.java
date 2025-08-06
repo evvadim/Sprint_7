@@ -1,5 +1,6 @@
 package tests.order.get;
 
+import config.Config;
 import data.orders.GetOrders;
 import data.orders.get.GetOrdersDataResponse;
 import data.orders.get.substructs.NearestStation;
@@ -42,7 +43,7 @@ public class GetOrdersTest {
     @DisplayName("Count of Orders on last page testing")
     public void getOrdersAtLastPageTest() {
 
-        Response response = getOrders.getOrderRequest(17, 0);
+        Response response = getOrders.getOrderRequest(Config.getOrdersLimit(), 0);
         GetOrdersDataResponse getOrdersDataResponse = response.body().as(GetOrdersDataResponse.class);
 
         // запросим общее количество заказов
@@ -62,7 +63,7 @@ public class GetOrdersTest {
         GetOrdersDataResponse getOrdersDataResponseLastPage = responseLastPage.body().as(GetOrdersDataResponse.class);
 
         assertThat(GetOrdersDataResponse.unexpectedOkErrorMessage, getOrdersDataResponseLastPage.getOrders(), GetOrdersDataResponse.expectedNotNull);
-        assertEquals("Количество заказов на последней страницы не равно ожидаемому", total - page * limit, getOrdersDataResponseLastPage.getOrders().size());
+        assertEquals("Количество заказов на последней страницы не равно ожидаемому", total % limit, getOrdersDataResponseLastPage.getOrders().size());
 
     }
 

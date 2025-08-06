@@ -41,4 +41,5 @@ public class CreateCourierDataConflict {
     public void setMessage(String message) {
         this.message = message;
     }
+
 }

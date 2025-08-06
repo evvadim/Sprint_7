@@ -36,4 +36,5 @@ public class CreateOrderDataCreated {
     public void setTrack(Integer track) {
         this.track = track;
     }
+
 }

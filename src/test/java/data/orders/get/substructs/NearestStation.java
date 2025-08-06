@@ -20,4 +20,5 @@ public class NearestStation {
     public void setNearestStation(List<String> nearestStation) {
         this.nearestStation = nearestStation;
     }
+
 }

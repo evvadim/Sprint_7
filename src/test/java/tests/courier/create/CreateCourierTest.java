@@ -22,7 +22,7 @@ public class CreateCourierTest {
     }
 
     @Test
-    public void createCourierValidData() {
+    public void createCourierValidDataExpectedOk() {
 
         Response response = courier.createCourierRequest();
         response.then().spec(CreateCourierDataCreated.responseSpec);

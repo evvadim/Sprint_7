@@ -1,7 +1,6 @@
 package data.courier;
 
 import config.Config;
-import data.courier.create.CreateCourierDataCreated;
 import data.courier.create.CreateCourierDataRequest;
 import data.courier.login.LoginCourierDataRequest;
 import data.courier.login.LoginCourierDataLoggedIn;
@@ -104,4 +103,5 @@ public class Courier {
     public void setId(Integer id) {
         this.id = id;
     }
+
 }

@@ -18,8 +18,10 @@ public class LoginCourierTest {
 
     @Before
     public void setUp() {
+
         courier = new Courier(loginCourierDataRequest);
         courier.createCourierRequest();
+
     }
 
     @Test
