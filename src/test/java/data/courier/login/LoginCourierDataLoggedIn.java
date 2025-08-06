@@ -8,7 +8,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class LoginCourierDataLoggedIn {
 
-    private String id;
+    private Integer id;
 
     // ожидаем получить
     public static final Matcher<Object> expectedNotNull = notNullValue();
@@ -20,18 +20,18 @@ public class LoginCourierDataLoggedIn {
             .expectStatusCode(200)
             .build();
 
-    public LoginCourierDataLoggedIn(String id) {
+    public LoginCourierDataLoggedIn(Integer id) {
         this.id = id;
     }
 
     public LoginCourierDataLoggedIn() {
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

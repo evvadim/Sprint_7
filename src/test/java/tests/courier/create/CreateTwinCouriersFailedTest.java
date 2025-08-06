@@ -26,7 +26,7 @@ public class CreateTwinCouriersFailedTest {
         response.then().spec(CreateCourierDataCreated.responseSpec);
 
         CreateCourierDataCreated createCourierDataCreated = response.body().as(CreateCourierDataCreated.class);
-        assertEquals(CreateCourierDataCreated.unexpectedOkErrorMessage, CreateCourierDataCreated.expectedOk, createCourierDataCreated.getOk());
+        assertEquals(CreateCourierDataCreated.unexpectedOkErrorMessage, CreateCourierDataCreated.expectedOk, createCourierDataCreated.isOk());
 
     }
 

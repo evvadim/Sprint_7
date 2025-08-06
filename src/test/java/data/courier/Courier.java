@@ -1,6 +1,7 @@
 package data.courier;
 
 import config.Config;
+import data.courier.create.CreateCourierDataCreated;
 import data.courier.create.CreateCourierDataRequest;
 import data.courier.login.LoginCourierDataRequest;
 import data.courier.login.LoginCourierDataLoggedIn;
@@ -16,6 +17,7 @@ public class Courier {
     private String login;
     private String password;
     private String firstName;
+    private Integer id;
     private final CreateCourierDataRequest createCourierDataRequest;
     private final LoginCourierDataRequest loginCourierDataRequest;
 
@@ -41,25 +43,29 @@ public class Courier {
             .build();
 
     public Response createCourierRequest() {
-        return given()
+        Response response = given()
                 .spec(requestSpecification)
                 .body(createCourierDataRequest)
                 .post(Config.getCreateCourierEndpoint());
+        this.id = loginCourierRequest().then().extract().as(LoginCourierDataLoggedIn.class).getId();
+        return response;
     }
 
     public Response loginCourierRequest() {
-        return given()
+        Response response = given()
                 .spec(requestSpecification)
                 .body(loginCourierDataRequest)
                 .post(Config.getLoginCourierEndpoint());
+        this.id = response.then().extract().as(LoginCourierDataLoggedIn.class).getId();
+        return response;
     }
 
-    public void deleteCourierRequest() {
-        Response response = loginCourierRequest();
-        LoginCourierDataLoggedIn loginCourierDataLoggedIn = response.then().extract().as(LoginCourierDataLoggedIn.class);
-        given()
+    public Response deleteCourierRequest() {
+        String deletePath =
+                (id == null) ? (Config.getDeleteCourierEndpoint()) : (String.format("%s/%d", Config.getDeleteCourierEndpoint(), id));
+        return given()
                 .spec(requestSpecification)
-                .delete(String.format("%s/%s", Config.getDeleteCourierEndpoint(), loginCourierDataLoggedIn.getId()));
+                .delete(deletePath);
     }
 
     public String getLogin() {
@@ -68,6 +74,7 @@ public class Courier {
 
     public void setLogin(String login) {
         this.createCourierDataRequest.setLogin(login);
+        this.loginCourierDataRequest.setLogin(login);
         this.login = login;
     }
 
@@ -77,6 +84,7 @@ public class Courier {
 
     public void setPassword(String password) {
         this.createCourierDataRequest.setPassword(password);
+        this.loginCourierDataRequest.setPassword(password);
         this.password = password;
     }
 
@@ -89,4 +97,11 @@ public class Courier {
         this.firstName = firstName;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

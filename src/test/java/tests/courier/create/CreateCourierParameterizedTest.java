@@ -51,7 +51,7 @@ public class CreateCourierParameterizedTest {
         // проверяем создался ли курьер
         response.then().spec(CreateCourierDataCreated.responseSpec);
         CreateCourierDataCreated createCourierDataCreated = response.body().as(CreateCourierDataCreated.class);
-        assertEquals(CreateCourierDataCreated.unexpectedOkErrorMessage, CreateCourierDataCreated.expectedOk, createCourierDataCreated.getOk());
+        assertEquals(CreateCourierDataCreated.unexpectedOkErrorMessage, CreateCourierDataCreated.expectedOk, createCourierDataCreated.isOk());
 
         // удаляем созданного курьера
         courier.deleteCourierRequest();
@@ -68,7 +68,7 @@ public class CreateCourierParameterizedTest {
         if (isCourierShouldBeCreated) {
             response.then().spec(CreateCourierDataCreated.responseSpec);
             CreateCourierDataCreated createCourierDataCreated = response.body().as(CreateCourierDataCreated.class);
-            assertEquals(CreateCourierDataCreated.unexpectedOkErrorMessage, CreateCourierDataCreated.expectedOk, createCourierDataCreated.getOk());
+            assertEquals(CreateCourierDataCreated.unexpectedOkErrorMessage, CreateCourierDataCreated.expectedOk, createCourierDataCreated.isOk());
         } else {
             response.then().spec(CreateCourierDataBadRequest.responseSpec);
             CreateCourierDataBadRequest createCourierDataBadRequest = response.then().extract().as(CreateCourierDataBadRequest.class);

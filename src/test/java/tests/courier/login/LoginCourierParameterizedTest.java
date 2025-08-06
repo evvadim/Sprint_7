@@ -64,7 +64,7 @@ public class LoginCourierParameterizedTest {
         // проверяем создался ли курьер
         response.then().spec(CreateCourierDataCreated.responseSpec);
         CreateCourierDataCreated createCourierDataCreated = response.body().as(CreateCourierDataCreated.class);
-        assertEquals(CreateCourierDataCreated.unexpectedOkErrorMessage, CreateCourierDataCreated.expectedOk, createCourierDataCreated.getOk());
+        assertEquals(CreateCourierDataCreated.unexpectedOkErrorMessage, CreateCourierDataCreated.expectedOk, createCourierDataCreated.isOk());
 
         // удаляем созданного курьера
 //        courier.deleteCourierRequest();
