@@ -1,20 +1,24 @@
 package data.courier.delete;
 
+import com.google.gson.Gson;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.ResponseSpecification;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class DeleteCourierDataDeleted {
 
     private boolean ok;
 
     // ожидаем получить
-    public static final boolean expectedOk = true;
-    // если не получаем, то текст ошибки
-    public static final String unexpectedOkErrorMessage = "Курьер с валидным id не был удален";
+    private static final Integer EXPECTED_CODE = 200;
+    private static final boolean EXPECTED_OK = true;
+    private static final DeleteCourierDataDeleted DELETE_COURIER_DATA_DELETED = new DeleteCourierDataDeleted(EXPECTED_OK);
 
     // спецификация ответа
-    public static final ResponseSpecification responseSpec = new ResponseSpecBuilder()
-            .expectStatusCode(200)
+    public static final ResponseSpecification RESPONSE_SPEC = new ResponseSpecBuilder()
+            .expectStatusCode(EXPECTED_CODE)
+            .expectBody(equalTo(new Gson().toJson(DELETE_COURIER_DATA_DELETED)))
             .build();
 
     public DeleteCourierDataDeleted(boolean ok) {
