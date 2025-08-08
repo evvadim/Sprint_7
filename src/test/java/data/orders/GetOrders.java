@@ -3,6 +3,7 @@ package data.orders;
 import com.google.gson.Gson;
 import config.Config;
 import data.orders.get.substructs.NearestStation;
+import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -25,6 +26,7 @@ public class GetOrders {
                 .get(Config.getGetOrdersEndpoint());
     }
 
+    @Step("Send GET Request for filter Nearest Stations")
     public Response getOrderRequest(NearestStation nearestStation) {
         String nearestStationAsJson = new Gson().toJson(nearestStation.getNearestStation());
         return given()
@@ -33,6 +35,7 @@ public class GetOrders {
                 .get(Config.getGetOrdersEndpoint());
     }
 
+    @Step("Send GET Request for receive `limit` orders at `page`")
     public Response getOrderRequest(Integer limit, Integer page) {
         return given()
                 .spec(requestSpecification)
@@ -41,6 +44,7 @@ public class GetOrders {
                 .get(Config.getGetOrdersEndpoint());
     }
 
+    @Step("Send default GET Request without options")
     public Response getOrderRequest() {
         return given()
                 .spec(requestSpecification)

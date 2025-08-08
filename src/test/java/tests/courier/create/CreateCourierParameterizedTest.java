@@ -6,14 +6,11 @@ import data.courier.create.CreateCourierDataRequest;
 import data.courier.create.CreateCourierDataCreated;
 import data.courier.Courier;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
-import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
 public class CreateCourierParameterizedTest {
@@ -46,12 +43,7 @@ public class CreateCourierParameterizedTest {
 
         // пытаемся создать курьера
         Courier courier = new Courier(createCourierWithValidData);
-        Response response = courier.createCourierRequest();
-
-        // проверяем создался ли курьер
-        response.then().spec(CreateCourierDataCreated.responseSpec);
-        CreateCourierDataCreated createCourierDataCreated = response.body().as(CreateCourierDataCreated.class);
-        assertEquals(CreateCourierDataCreated.unexpectedOkErrorMessage, CreateCourierDataCreated.expectedOk, createCourierDataCreated.isOk());
+        courier.createCourierRequest();
 
         // удаляем созданного курьера
         courier.deleteCourierRequest();
@@ -63,16 +55,12 @@ public class CreateCourierParameterizedTest {
     public void createCourierWithData() {
 
         createCourierParamData = new Courier(createCourierDataRequest);
-        Response response = createCourierParamData.createCourierRequest();
 
         if (isCourierShouldBeCreated) {
-            response.then().spec(CreateCourierDataCreated.responseSpec);
-            CreateCourierDataCreated createCourierDataCreated = response.body().as(CreateCourierDataCreated.class);
-            assertEquals(CreateCourierDataCreated.unexpectedOkErrorMessage, CreateCourierDataCreated.expectedOk, createCourierDataCreated.isOk());
+            createCourierParamData.createCourierRequest(CreateCourierDataCreated.RESPONSE_SPEC);
+
         } else {
-            response.then().spec(CreateCourierDataBadRequest.responseSpec);
-            CreateCourierDataBadRequest createCourierDataBadRequest = response.then().extract().as(CreateCourierDataBadRequest.class);
-            assertEquals(CreateCourierDataBadRequest.unexpectedErrorMessage, CreateCourierDataBadRequest.expectedMessage, createCourierDataBadRequest.getMessage());
+            createCourierParamData.createCourierRequest(CreateCourierDataBadRequest.RESPONSE_SPEC);
         }
 
     }

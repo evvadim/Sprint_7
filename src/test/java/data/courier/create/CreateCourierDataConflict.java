@@ -1,37 +1,31 @@
 package data.courier.create;
 
+import com.google.gson.Gson;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.ResponseSpecification;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+
 public class CreateCourierDataConflict {
 
-    private Integer code;
     private String message;
 
     // ожидаем получить
-    public static final String expectedMessage = "Этот логин уже используется";
-    // если не получаем, то текст ошибки
-    public static final String unexpectedErrorMessage = "Сообщение об ошибке не соответствует документации";
+    private static final Integer EXPECTED_CODE = 409;
+    private static final String EXPECTED_MESSAGE = "Этот логин уже используется";
+    private static final CreateCourierDataConflict CREATE_COURIER_DATA_CONFLICT = new CreateCourierDataConflict(EXPECTED_MESSAGE);
 
     // спецификация ответа
-    public static final ResponseSpecification responseSpec = new ResponseSpecBuilder()
-            .expectStatusCode(409)
+    public static final ResponseSpecification RESPONSE_SPECIFICATION = new ResponseSpecBuilder()
+            .expectStatusCode(EXPECTED_CODE)
+            .expectBody(equalTo(new Gson().toJson(CREATE_COURIER_DATA_CONFLICT)))
             .build();
 
-    public CreateCourierDataConflict(Integer code, String message) {
-        this.code = code;
+    public CreateCourierDataConflict(String message) {
         this.message = message;
     }
 
     public CreateCourierDataConflict() {
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
     }
 
     public String getMessage() {

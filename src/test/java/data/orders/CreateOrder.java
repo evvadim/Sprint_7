@@ -3,6 +3,7 @@ package data.orders;
 import config.Config;
 import data.orders.create.CreateOrderDataRequest;
 import data.scooter.ScooterColor;
+import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -43,6 +44,7 @@ public class CreateOrder {
             .setContentType(ContentType.JSON)
             .build();
 
+    @Step("Create Order Request")
     public Response createOrderRequest() {
         return given()
                 .spec(requestSpecification)
@@ -50,12 +52,12 @@ public class CreateOrder {
                 .post(Config.getCreateOrderEndpoint());
     }
 
+    @Step("Cancel Order with `track` Request")
     public void cancelOrderRequest(Integer track) {
         given()
                 .spec(requestSpecification)
                 .queryParam("track", track)
                 .put(Config.getCancelOrderEndpoint());
-
     }
 
     public String getFirstName() {

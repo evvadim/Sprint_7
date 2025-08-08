@@ -4,12 +4,9 @@ import config.Config;
 import data.courier.create.CreateCourierDataRequest;
 import data.courier.create.CreateCourierDataCreated;
 import data.courier.Courier;
-import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class CreateCourierTest {
 
@@ -23,13 +20,7 @@ public class CreateCourierTest {
 
     @Test
     public void createCourierValidDataExpectedOk() {
-
-        Response response = courier.createCourierRequest();
-        response.then().spec(CreateCourierDataCreated.responseSpec);
-
-        CreateCourierDataCreated createCourierDataCreated = response.body().as(CreateCourierDataCreated.class);
-        assertEquals(CreateCourierDataCreated.unexpectedOkErrorMessage, CreateCourierDataCreated.expectedOk, createCourierDataCreated.isOk());
-
+        courier.createCourierRequest(CreateCourierDataCreated.RESPONSE_SPEC);
     }
 
     @After

@@ -4,10 +4,12 @@ import config.Config;
 import data.courier.create.CreateCourierDataRequest;
 import data.courier.login.LoginCourierDataRequest;
 import data.courier.login.LoginCourierDataLoggedIn;
+import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 
 import static io.restassured.RestAssured.given;
 
@@ -41,30 +43,82 @@ public class Courier {
             .setContentType(ContentType.JSON)
             .build();
 
-    public Response createCourierRequest() {
+    @Step("Create Courier POST Request")
+    private void createCourierRequestAndCheckResponseSpecs(ResponseSpecification specification) {
+
         Response response = given()
                 .spec(requestSpecification)
                 .body(createCourierDataRequest)
                 .post(Config.getCreateCourierEndpoint());
-        this.id = loginCourierRequest().then().extract().as(LoginCourierDataLoggedIn.class).getId();
-        return response;
+        this.id = loginCourierRequest(null).then().extract().as(LoginCourierDataLoggedIn.class).getId();
+
+        if (specification != null) {
+            checkResponseSpecs(response, specification);
+        }
+
     }
 
-    public Response loginCourierRequest() {
+    public void createCourierRequest() {
+        createCourierRequestAndCheckResponseSpecs(null);
+    }
+
+    public void createCourierRequest(ResponseSpecification specification) {
+        createCourierRequestAndCheckResponseSpecs(specification);
+    }
+
+    @Step("Login Courier POST Request")
+    private Response loginCourierRequestAndCheckResponseSpecs(ResponseSpecification specification) {
+
         Response response = given()
                 .spec(requestSpecification)
                 .body(loginCourierDataRequest)
                 .post(Config.getLoginCourierEndpoint());
         this.id = response.then().extract().as(LoginCourierDataLoggedIn.class).getId();
+
+        if (specification != null) {
+            checkResponseSpecs(response, specification);
+        }
+
         return response;
     }
 
-    public Response deleteCourierRequest() {
+    public void loginCourierRequest() {
+        loginCourierRequestAndCheckResponseSpecs(null);
+    }
+
+    public Response loginCourierRequest(ResponseSpecification specification) {
+        return loginCourierRequestAndCheckResponseSpecs(specification);
+    }
+
+    @Step("Delete Courier DELETE Request")
+    private Response deleteCourierRequestAndCheckResponseSpecs(ResponseSpecification specification) {
+
         String deletePath =
                 (id == null) ? (Config.getDeleteCourierEndpoint()) : (String.format("%s/%d", Config.getDeleteCourierEndpoint(), id));
-        return given()
+
+        Response response = given()
                 .spec(requestSpecification)
                 .delete(deletePath);
+
+        if (specification != null) {
+            checkResponseSpecs(response, specification);
+        }
+
+        return response;
+
+    }
+
+    public void deleteCourierRequest() {
+        deleteCourierRequestAndCheckResponseSpecs(null);
+    }
+
+    public Response deleteCourierRequest(ResponseSpecification specification) {
+        return deleteCourierRequestAndCheckResponseSpecs(specification);
+    }
+
+    @Step("Checking Response Specification")
+    public void checkResponseSpecs(Response response, ResponseSpecification responseSpecification) {
+        response.then().spec(responseSpecification);
     }
 
     public String getLogin() {

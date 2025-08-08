@@ -5,6 +5,7 @@ import data.orders.GetOrders;
 import data.orders.get.GetOrdersDataResponse;
 import data.orders.get.substructs.NearestStation;
 import data.orders.get.substructs.Order;
+import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.Before;
@@ -80,8 +81,8 @@ public class GetOrdersTest {
         GetOrdersDataResponse getOrdersDataResponseRandomOrder = responseRandomOrder.body().as(GetOrdersDataResponse.class);
 
         // создаем список с номером станции из случайного заказа
-        List<String> station = List.of(getOrdersDataResponseRandomOrder.getOrders().get(0).getMetroStation());
-        NearestStation nearestStation = new NearestStation(station);
+        List<String> randomStation = List.of(getOrdersDataResponseRandomOrder.getOrders().get(0).getMetroStation());
+        NearestStation nearestStation = new NearestStation(randomStation);
 
         // оправляем запрос на поиск заказов с этим номером станции
         Response responseNearestStation = getOrders.getOrderRequest(nearestStation);
@@ -89,13 +90,13 @@ public class GetOrdersTest {
 
         List<Order> orders = getOrdersDataResponseNearestStation.getOrders();
 
-        Set<String> stringSet = new HashSet<>();
+        Set<String> filteredOrderStations = new HashSet<>();
 
         for (Order order : orders) {
-            stringSet.add(order.getMetroStation());
+            filteredOrderStations.add(order.getMetroStation());
         }
 
-        assertEquals("Финальная выдача не фильтруется по ожидаемой станции", station, new ArrayList<>(stringSet));
+        assertEquals("Финальная выдача не фильтруется по ожидаемой станции", randomStation, new ArrayList<>(filteredOrderStations));
 
     }
 

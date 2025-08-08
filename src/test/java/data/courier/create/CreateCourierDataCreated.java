@@ -1,20 +1,24 @@
 package data.courier.create;
 
+import com.google.gson.Gson;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.ResponseSpecification;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class CreateCourierDataCreated {
 
     private boolean ok;
 
     // ожидаем получить
-    public static final boolean expectedOk = true;
-    // если не получаем, то текст ошибки
-    public static final String unexpectedOkErrorMessage = "Курьер с валидными и обязательными полями не был создан";
+    private static final Integer EXPECTED_CODE = 201;
+    private static final boolean EXPECTED_OK = true;
+    private static final CreateCourierDataCreated CREATE_COURIER_DATA_CREATED = new CreateCourierDataCreated(EXPECTED_OK);
 
     // спецификация ответа
-    public static final ResponseSpecification responseSpec = new ResponseSpecBuilder()
-            .expectStatusCode(201)
+    public static final ResponseSpecification RESPONSE_SPEC = new ResponseSpecBuilder()
+            .expectStatusCode(EXPECTED_CODE)
+            .expectBody(equalTo(new Gson().toJson(CREATE_COURIER_DATA_CREATED)))
             .build();
 
     public CreateCourierDataCreated(boolean ok) {

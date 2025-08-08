@@ -27,8 +27,7 @@ public class LoginCourierTest {
     @Test
     public void loginCourierRequest() {
 
-        Response response = courier.loginCourierRequest();
-        response.then().spec(LoginCourierDataLoggedIn.responseSpec);
+        Response response = courier.loginCourierRequest(LoginCourierDataLoggedIn.responseSpec);
 
         LoginCourierDataLoggedIn loginCourierDataLoggedIn = response.body().as(LoginCourierDataLoggedIn.class);
         assertThat(LoginCourierDataLoggedIn.unexpectedNotNullErrorMessage, loginCourierDataLoggedIn.getId(), LoginCourierDataLoggedIn.expectedNotNull);

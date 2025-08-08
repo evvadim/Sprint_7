@@ -59,12 +59,7 @@ public class LoginCourierParameterizedTest {
 
         // пытаемся создать курьера
         courier = new Courier(loginCourierWithValidData);
-        Response response = courier.createCourierRequest();
-
-        // проверяем создался ли курьер
-        response.then().spec(CreateCourierDataCreated.responseSpec);
-        CreateCourierDataCreated createCourierDataCreated = response.body().as(CreateCourierDataCreated.class);
-        assertEquals(CreateCourierDataCreated.unexpectedOkErrorMessage, CreateCourierDataCreated.expectedOk, createCourierDataCreated.isOk());
+        courier.createCourierRequest();
 
         // удаляем созданного курьера
 //        courier.deleteCourierRequest();
@@ -76,18 +71,17 @@ public class LoginCourierParameterizedTest {
     public void loginCourierWithData() {
 
         Courier loginCourierParamData = new Courier(loginCourierDataRequest);
-        Response response = loginCourierParamData.loginCourierRequest();
 
         if (isCourierShouldBeLoggedIn) {
-            response.then().spec(LoginCourierDataLoggedIn.responseSpec);
+            Response response = loginCourierParamData.loginCourierRequest(LoginCourierDataLoggedIn.responseSpec);
             LoginCourierDataLoggedIn loginCourierDataLoggedIn = response.body().as(LoginCourierDataLoggedIn.class);
             assertThat(LoginCourierDataLoggedIn.unexpectedNotNullErrorMessage, loginCourierDataLoggedIn.getId(), LoginCourierDataLoggedIn.expectedNotNull);
         } else if (isIncompleteLoginData) {
-            response.then().spec(LoginCourierDataBadRequest.responseSpec);
+            Response response = loginCourierParamData.loginCourierRequest(LoginCourierDataBadRequest.responseSpec);
             LoginCourierDataBadRequest loginCourierDataBadRequest = response.then().extract().as(LoginCourierDataBadRequest.class);
             assertEquals(LoginCourierDataBadRequest.unexpectedErrorMessage, LoginCourierDataBadRequest.expectedMessage, loginCourierDataBadRequest.getMessage());
         } else {
-            response.then().spec(LoginCourierDataNotFound.responseSpec);
+            Response response = loginCourierParamData.loginCourierRequest(LoginCourierDataNotFound.responseSpec);
             LoginCourierDataNotFound loginCourierDataNotFound = response.then().extract().as(LoginCourierDataNotFound.class);
             assertEquals(LoginCourierDataNotFound.unexpectedErrorMessage, LoginCourierDataNotFound.expectedMessage, loginCourierDataNotFound.getMessage());
         }

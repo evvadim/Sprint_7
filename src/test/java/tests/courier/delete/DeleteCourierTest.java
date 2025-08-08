@@ -31,9 +31,7 @@ public class DeleteCourierTest {
     @Test
     public void deleteCourierValidDataExpectedOk() {
 
-        Response response = courier.deleteCourierRequest();
-        response.then().spec(DeleteCourierDataDeleted.responseSpec);
-        
+        Response response = courier.deleteCourierRequest(DeleteCourierDataDeleted.responseSpec);
         DeleteCourierDataDeleted deleteCourierDataDeleted = response.body().as(DeleteCourierDataDeleted.class);
         assertEquals(DeleteCourierDataDeleted.unexpectedOkErrorMessage, DeleteCourierDataDeleted.expectedOk, deleteCourierDataDeleted.isOk());
         
@@ -52,12 +50,10 @@ public class DeleteCourierTest {
         courier.setId(null);
 
         // пытаемся удалить созданного курьера
-        Response response = courier.deleteCourierRequest();
-        response.then().spec(DeleteCourierDataBadRequest.responseSpec);
+        Response response = courier.deleteCourierRequest(DeleteCourierDataBadRequest.responseSpec);
 
         DeleteCourierDataBadRequest deleteCourierDataBadRequest = response.body().as(DeleteCourierDataBadRequest.class);
         assertEquals(DeleteCourierDataBadRequest.unexpectedErrorMessage, DeleteCourierDataBadRequest.expectedMessage, deleteCourierDataBadRequest.getMessage());
-        
     }
 
     @Test
@@ -76,8 +72,7 @@ public class DeleteCourierTest {
         // который был удален из таблицы `Couriers`
 
         // пытаемся удалить курьера с `id`, которого уже не существует
-        Response response = courierClone.deleteCourierRequest();
-        response.then().spec(DeleteCourierDataNotFound.responseSpec);
+        Response response = courierClone.deleteCourierRequest(DeleteCourierDataNotFound.responseSpec);
 
         DeleteCourierDataNotFound deleteCourierDataNotFound = response.body().as(DeleteCourierDataNotFound.class);
         assertEquals(DeleteCourierDataNotFound.unexpectedErrorMessage, DeleteCourierDataNotFound.expectedMessage, deleteCourierDataNotFound.getMessage());

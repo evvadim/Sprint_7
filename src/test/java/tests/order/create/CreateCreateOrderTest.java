@@ -39,7 +39,7 @@ public class CreateCreateOrderTest {
     public void createOrder() {
 
         Response response = createOrder.createOrderRequest();
-        response.then().spec(CreateCourierDataCreated.responseSpec);
+        response.then().spec(CreateCourierDataCreated.RESPONSE_SPEC);
 
         CreateOrderDataCreated createOrderDataCreated = response.body().as(CreateOrderDataCreated.class);
         track = createOrderDataCreated.getTrack();
