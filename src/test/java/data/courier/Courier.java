@@ -10,8 +10,10 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import org.junit.Assert;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class Courier {
 
@@ -119,6 +121,13 @@ public class Courier {
     @Step("Checking Response Specification")
     public void checkResponseSpecs(Response response, ResponseSpecification responseSpecification) {
         response.then().spec(responseSpecification);
+    }
+
+    @Step("Check response for casting to Class and return Object")
+    public <T> Object extractResponseToObject(Response response, Class<T> anyClass) {
+        response.then().assertThat().extract().as(anyClass);
+        response.then().assertThat().body(notNullValue());
+        return response.body().as(anyClass);
     }
 
     public String getLogin() {

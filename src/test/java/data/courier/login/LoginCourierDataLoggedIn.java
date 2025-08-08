@@ -11,13 +11,14 @@ public class LoginCourierDataLoggedIn {
     private Integer id;
 
     // ожидаем получить
+    public static Integer CODE = 200;
     public static final Matcher<Object> expectedNotNull = notNullValue();
     // если не получаем, то текст ошибки
     public static final String unexpectedNotNullErrorMessage = "Неуспешный логин курьера с валидными и обязательными полями";
 
     // спецификация ответа
     public static final ResponseSpecification responseSpec = new ResponseSpecBuilder()
-            .expectStatusCode(200)
+            .expectStatusCode(CODE)
             .build();
 
     public LoginCourierDataLoggedIn(Integer id) {

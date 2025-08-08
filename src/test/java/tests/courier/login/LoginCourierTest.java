@@ -18,19 +18,15 @@ public class LoginCourierTest {
 
     @Before
     public void setUp() {
-
         courier = new Courier(loginCourierDataRequest);
         courier.createCourierRequest();
-
     }
 
     @Test
     public void loginCourierRequest() {
 
         Response response = courier.loginCourierRequest(LoginCourierDataLoggedIn.responseSpec);
-
-        LoginCourierDataLoggedIn loginCourierDataLoggedIn = response.body().as(LoginCourierDataLoggedIn.class);
-        assertThat(LoginCourierDataLoggedIn.unexpectedNotNullErrorMessage, loginCourierDataLoggedIn.getId(), LoginCourierDataLoggedIn.expectedNotNull);
+        courier.extractResponseToObject(response, LoginCourierDataLoggedIn.class);
 
     }
 

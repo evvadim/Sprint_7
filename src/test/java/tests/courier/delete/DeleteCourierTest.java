@@ -7,12 +7,9 @@ import data.courier.delete.DeleteCourierDataBadRequest;
 import data.courier.delete.DeleteCourierDataDeleted;
 import data.courier.delete.DeleteCourierDataNotFound;
 import data.courier.login.LoginCourierDataRequest;
-import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class DeleteCourierTest {
     
