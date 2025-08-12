@@ -10,10 +10,9 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import org.junit.Assert;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class Courier {
 
@@ -52,7 +51,7 @@ public class Courier {
                 .spec(requestSpecification)
                 .body(createCourierDataRequest)
                 .post(Config.getCreateCourierEndpoint());
-        this.id = loginCourierRequest(null).then().extract().as(LoginCourierDataLoggedIn.class).getId();
+//        this.id = loginCourierRequest(null).then().extract().as(LoginCourierDataLoggedIn.class).getId();
 
         if (specification != null) {
             checkResponseSpecs(response, specification);
@@ -114,20 +113,23 @@ public class Courier {
         deleteCourierRequestAndCheckResponseSpecs(null);
     }
 
-    public Response deleteCourierRequest(ResponseSpecification specification) {
-        return deleteCourierRequestAndCheckResponseSpecs(specification);
+    public void deleteCourierRequest(ResponseSpecification specification) {
+        deleteCourierRequestAndCheckResponseSpecs(specification);
     }
 
-    @Step("Checking Response Specification")
+    @Step("Check Response Specification")
     public void checkResponseSpecs(Response response, ResponseSpecification responseSpecification) {
         response.then().spec(responseSpecification);
     }
 
-    @Step("Check response for casting to Class and return Object")
+    @Step("Cast response to Class<T> and return Object")
     public <T> Object extractResponseToObject(Response response, Class<T> anyClass) {
-        response.then().assertThat().extract().as(anyClass);
-        response.then().assertThat().body(notNullValue());
         return response.body().as(anyClass);
+    }
+
+    @Step("Not Null Response when Courier Login Check")
+    public void successLoginCourierCheck(LoginCourierDataLoggedIn loginCourierDataLoggedIn) {
+        assertThat(loginCourierDataLoggedIn.getId(), LoginCourierDataLoggedIn.EXPECTED_NOT_NULL);
     }
 
     public String getLogin() {

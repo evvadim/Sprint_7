@@ -14,16 +14,15 @@ import org.junit.runners.Parameterized;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-
 @RunWith(Parameterized.class)
-public class CreateCreateOrderParameterizedTest {
+public class CreateOrderParameterizedTest {
 
     CreateOrder createOrder;
     Integer track;
     private final CreateOrderDataRequest createOrderDataRequest;
+    Response response;
 
-    public CreateCreateOrderParameterizedTest(List<ScooterColor> scooterColorList) {
+    public CreateOrderParameterizedTest(List<ScooterColor> scooterColorList) {
         this.createOrderDataRequest = new CreateOrderDataRequest(Config.getOrderFirstName(),
                 Config.getOrderLastName(),
                 Config.getOrderAddress(),
@@ -53,19 +52,20 @@ public class CreateCreateOrderParameterizedTest {
     @Test
     public void createOrder() {
 
-        Response response = createOrder.createOrderRequest();
-        response.then().spec(CreateOrderDataCreated.responseSpec);
-
+        response = createOrder.createOrderRequest();
+        response.then().spec(CreateOrderDataCreated.RESPONSE_SPEC);
         CreateOrderDataCreated createOrderDataCreated = response.body().as(CreateOrderDataCreated.class);
-        track = createOrderDataCreated.getTrack();
-
-        assertThat(CreateOrderDataCreated.unexpectedOkErrorMessage, createOrderDataCreated.getTrack(), CreateOrderDataCreated.expectedNotNull);
+        createOrder.successOrderCreatedCheck(createOrderDataCreated);
 
     }
 
     @After
     public void tearDown() {
+
+        CreateOrderDataCreated createOrderDataCreated = response.body().as(CreateOrderDataCreated.class);
+        track = createOrderDataCreated.getTrack();
         createOrder.cancelOrderRequest(track);
+
     }
 
 }

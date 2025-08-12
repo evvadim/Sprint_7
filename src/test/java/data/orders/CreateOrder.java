@@ -1,6 +1,7 @@
 package data.orders;
 
 import config.Config;
+import data.orders.create.CreateOrderDataCreated;
 import data.orders.create.CreateOrderDataRequest;
 import data.scooter.ScooterColor;
 import io.qameta.allure.Step;
@@ -12,6 +13,7 @@ import io.restassured.specification.RequestSpecification;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CreateOrder {
 
@@ -50,6 +52,11 @@ public class CreateOrder {
                 .spec(requestSpecification)
                 .body(createOrderDataRequest)
                 .post(Config.getCreateOrderEndpoint());
+    }
+
+    @Step("Not Null Response when Order Created Check")
+    public void successOrderCreatedCheck(CreateOrderDataCreated createOrderDataCreated) {
+        assertThat(createOrderDataCreated.getTrack(), CreateOrderDataCreated.EXPECTED_NOT_NULL);
     }
 
     @Step("Cancel Order with `track` Request")

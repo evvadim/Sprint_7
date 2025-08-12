@@ -2,21 +2,15 @@ package tests.courier.login;
 
 import config.Config;
 import data.courier.Courier;
-import data.courier.create.CreateCourierDataCreated;
 import data.courier.login.LoginCourierDataBadRequest;
 import data.courier.login.LoginCourierDataNotFound;
 import data.courier.login.LoginCourierDataRequest;
-import data.courier.login.LoginCourierDataLoggedIn;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class LoginCourierParameterizedTest {
@@ -26,16 +20,10 @@ public class LoginCourierParameterizedTest {
 
     // переменные параметризации
     private final LoginCourierDataRequest loginCourierDataRequest;
-    private final boolean isCourierShouldBeLoggedIn;
-    private final boolean isIncompleteLoginData;
 
     public LoginCourierParameterizedTest(String login,
-                                         String password,
-                                         boolean isCourierShouldBeLoggedIn,
-                                         boolean isIncompleteLoginData) {
+                                         String password) {
 
-        this.isCourierShouldBeLoggedIn = isCourierShouldBeLoggedIn;
-        this.isIncompleteLoginData = isIncompleteLoginData;
         this.loginCourierDataRequest = new LoginCourierDataRequest(login, password);
 
     }
@@ -43,12 +31,12 @@ public class LoginCourierParameterizedTest {
     @Parameterized.Parameters(name = "Testing Data for Login Courier")
     public static Object[][] getLoginData() {
         return new Object[][] {
-//                {Config.getUserLogin(), null, false, true},
-                {Config.getUserLogin(), "", false, true},
-                {null, Config.getUserPassword(), false, true},
-                {Config.getUserLogin(), Config.getWrongUserPassword(), false, false},
-                {Config.getWrongUserLogin(), Config.getUserPassword(), false, false},
-                {Config.getWrongUserLogin(), Config.getWrongUserPassword(), false, false},
+//                {Config.getUserLogin(), null},
+                {Config.getUserLogin(), ""},
+                {null, Config.getUserPassword()},
+                {Config.getUserLogin(), Config.getWrongUserPassword()},
+                {Config.getWrongUserLogin(), Config.getUserPassword()},
+                {Config.getWrongUserLogin(), Config.getWrongUserPassword()},
         };
     }
 
@@ -61,9 +49,6 @@ public class LoginCourierParameterizedTest {
         courier = new Courier(loginCourierWithValidData);
         courier.createCourierRequest();
 
-        // удаляем созданного курьера
-//        courier.deleteCourierRequest();
-
     }
 
     @Test
@@ -71,19 +56,13 @@ public class LoginCourierParameterizedTest {
     public void loginCourierWithData() {
 
         Courier loginCourierParamData = new Courier(loginCourierDataRequest);
+//        boolean isIncompleteLoginData = (loginCourierDataRequest.getLogin() == null) || (loginCourierDataRequest.getPassword() == null);
+        boolean isIncompleteLoginData = (loginCourierDataRequest.getLogin() == null) || (loginCourierDataRequest.getPassword() == null) || (loginCourierDataRequest.getPassword().isEmpty());
 
-        if (isCourierShouldBeLoggedIn) {
-            Response response = loginCourierParamData.loginCourierRequest(LoginCourierDataLoggedIn.responseSpec);
-            LoginCourierDataLoggedIn loginCourierDataLoggedIn = response.body().as(LoginCourierDataLoggedIn.class);
-            assertThat(LoginCourierDataLoggedIn.unexpectedNotNullErrorMessage, loginCourierDataLoggedIn.getId(), LoginCourierDataLoggedIn.expectedNotNull);
-        } else if (isIncompleteLoginData) {
-            Response response = loginCourierParamData.loginCourierRequest(LoginCourierDataBadRequest.responseSpec);
-            LoginCourierDataBadRequest loginCourierDataBadRequest = response.then().extract().as(LoginCourierDataBadRequest.class);
-            assertEquals(LoginCourierDataBadRequest.unexpectedErrorMessage, LoginCourierDataBadRequest.expectedMessage, loginCourierDataBadRequest.getMessage());
+        if (isIncompleteLoginData) {
+            loginCourierParamData.loginCourierRequest(LoginCourierDataBadRequest.RESPONSE_SPEC);
         } else {
-            Response response = loginCourierParamData.loginCourierRequest(LoginCourierDataNotFound.responseSpec);
-            LoginCourierDataNotFound loginCourierDataNotFound = response.then().extract().as(LoginCourierDataNotFound.class);
-            assertEquals(LoginCourierDataNotFound.unexpectedErrorMessage, LoginCourierDataNotFound.expectedMessage, loginCourierDataNotFound.getMessage());
+            loginCourierParamData.loginCourierRequest(LoginCourierDataNotFound.RESPONSE_SPEC);
         }
 
     }

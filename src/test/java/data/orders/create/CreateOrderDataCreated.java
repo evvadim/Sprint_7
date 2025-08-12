@@ -12,13 +12,13 @@ public class CreateOrderDataCreated {
     private Integer track;
 
     // ожидаем получить
-    public static final Matcher<Object> expectedNotNull = notNullValue();
-    // если не получаем, то текст ошибки
-    public static final String unexpectedOkErrorMessage = "Заказ с валидными и обязательными полями не был создан";
+    private static final Integer EXPECTED_CODE = 201;
+    public static final Matcher<Object> EXPECTED_NOT_NULL = notNullValue();
+
 
     // спецификация ответа
-    public static final ResponseSpecification responseSpec = new ResponseSpecBuilder()
-            .expectStatusCode(201)
+    public static final ResponseSpecification RESPONSE_SPEC = new ResponseSpecBuilder()
+            .expectStatusCode(EXPECTED_CODE)
             .expectBody(containsString("track"))
             .build();
 

@@ -25,6 +25,7 @@ public class CreateCourierTest {
 
     @After
     public void tearDown() {
+        courier.loginCourierRequest();
         courier.deleteCourierRequest();
     }
 }

@@ -8,11 +8,11 @@ import static org.hamcrest.CoreMatchers.equalTo;
 
 public class DeleteCourierDataDeleted {
 
-    private boolean ok;
+    private Boolean ok;
 
     // ожидаем получить
     private static final Integer EXPECTED_CODE = 200;
-    private static final boolean EXPECTED_OK = true;
+    private static final Boolean EXPECTED_OK = true;
     private static final DeleteCourierDataDeleted DELETE_COURIER_DATA_DELETED = new DeleteCourierDataDeleted(EXPECTED_OK);
 
     // спецификация ответа
@@ -21,18 +21,18 @@ public class DeleteCourierDataDeleted {
             .expectBody(equalTo(new Gson().toJson(DELETE_COURIER_DATA_DELETED)))
             .build();
 
-    public DeleteCourierDataDeleted(boolean ok) {
+    public DeleteCourierDataDeleted(Boolean ok) {
         this.ok = ok;
     }
 
     public DeleteCourierDataDeleted() {
     }
 
-    public boolean isOk() {
+    public Boolean isOk() {
         return ok;
     }
 
-    public void setOk(boolean ok) {
+    public void setOk(Boolean ok) {
         this.ok = ok;
     }
 

@@ -46,6 +46,8 @@ public class CreateCourierParameterizedTest {
         courier.createCourierRequest();
 
         // удаляем созданного курьера
+        // для этого сначала логинимся чтобы получить `id`
+        courier.loginCourierRequest();
         courier.deleteCourierRequest();
 
     }
@@ -67,6 +69,7 @@ public class CreateCourierParameterizedTest {
     @After
     public void tearDown() {
         if (isCourierShouldBeCreated) {
+            createCourierParamData.loginCourierRequest();
             createCourierParamData.deleteCourierRequest();
         }
     }

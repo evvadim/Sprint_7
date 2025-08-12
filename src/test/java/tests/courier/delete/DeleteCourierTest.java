@@ -27,6 +27,7 @@ public class DeleteCourierTest {
 
     @Test
     public void deleteCourierValidDataExpectedOk() {
+        courier.loginCourierRequest();
         courier.deleteCourierRequest(DeleteCourierDataDeleted.RESPONSE_SPEC);
     }
 

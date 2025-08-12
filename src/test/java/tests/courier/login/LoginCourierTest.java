@@ -9,8 +9,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-
 public class LoginCourierTest {
 
     LoginCourierDataRequest loginCourierDataRequest = new LoginCourierDataRequest(Config.getUserLogin(), Config.getUserPassword());
@@ -25,8 +23,9 @@ public class LoginCourierTest {
     @Test
     public void loginCourierRequest() {
 
-        Response response = courier.loginCourierRequest(LoginCourierDataLoggedIn.responseSpec);
-        courier.extractResponseToObject(response, LoginCourierDataLoggedIn.class);
+        Response response = courier.loginCourierRequest(LoginCourierDataLoggedIn.RESPONSE_SPEC);
+        LoginCourierDataLoggedIn loginCourierDataLoggedIn = (LoginCourierDataLoggedIn) courier.extractResponseToObject(response, LoginCourierDataLoggedIn.class);
+        courier.successLoginCourierCheck(loginCourierDataLoggedIn);
 
     }
 

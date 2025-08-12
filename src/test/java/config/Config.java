@@ -35,9 +35,6 @@ public class Config {
     private static final String scooterColorBlack;
     private static final String scooterColorGrey;
 
-    private static final Integer ordersLimit;
-    private static final Integer countOfNearestStation;
-
     static {
         Properties properties = new Properties();
         try {
@@ -75,14 +72,12 @@ public class Config {
         scooterColorGrey = properties.getProperty("scooterColorGrey");
         scooterColorBlack = properties.getProperty("scooterColorBlack");
 
-        ordersLimit = Integer.valueOf(properties.getProperty("ordersLimit"));
-        countOfNearestStation = Integer.valueOf(properties.getProperty("countOfNearestStation"));
-
     }
 
     public static String getBaseURI() {
         return baseURI;
     }
+
 
     public static String getCreateCourierEndpoint() {
         return createCourierEndpoint;
@@ -96,6 +91,7 @@ public class Config {
         return deleteCourierEndpoint;
     }
 
+
     public static String getCreateOrderEndpoint() {
         return createOrderEndpoint;
     }
@@ -107,6 +103,7 @@ public class Config {
     public static String getGetOrdersEndpoint() {
         return getOrdersEndpoint;
     }
+
 
     public static String getUserLogin() {
         return userLogin;
@@ -162,19 +159,13 @@ public class Config {
         return orderComment;
     }
 
+
     public static String getScooterColorBlack() {
         return scooterColorBlack;
     }
 
     public static String getScooterColorGrey() {
         return scooterColorGrey;
-    }
-
-    public static Integer getOrdersLimit() {
-        return ordersLimit;
-    }
-    public static Integer getCountOfNearestStation() {
-        return countOfNearestStation;
     }
 
 }
