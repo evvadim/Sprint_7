@@ -32,8 +32,13 @@ public class CreateTwinCouriersFailedTest {
 
     @After
     public void tearDown() {
+
+        courier.loginCourierRequest();
         courier.deleteCourierRequest();
+
+        twinCourier.loginCourierRequest();
         twinCourier.deleteCourierRequest();
+
     }
 
 }

@@ -69,6 +69,7 @@ public class LoginCourierParameterizedTest {
 
     @After
     public void tearDown() {
+        courier.loginCourierRequest();
         courier.deleteCourierRequest();
     }
 }

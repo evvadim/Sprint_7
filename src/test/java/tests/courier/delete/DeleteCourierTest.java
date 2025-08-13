@@ -58,6 +58,8 @@ public class DeleteCourierTest {
         courierClone.loginCourierRequest();
 
         // удаляем основного курьера
+        // перед этим авторизуемся чтобы получить `id`
+        courier.loginCourierRequest();
         courier.deleteCourierRequest();
         // таким образом в объекте `courierClone` остались данные учетной записи и значение поля `id` курьера,
         // который был удален из таблицы `Couriers`
