@@ -12,12 +12,14 @@ public class DeleteCourierDataBadRequest {
 
     // ожидаем получить
     private static final Integer EXPECTED_CODE = 400;
+    private static final String EXPECTED_STATUS_LINE = "HTTP/1.1 " + EXPECTED_CODE + " Bad Request";
     private static final String EXPECTED_MESSAGE = "Недостаточно данных для удаления курьера";
     private static final DeleteCourierDataBadRequest DELETE_COURIER_DATA_BAD_REQUEST = new DeleteCourierDataBadRequest(EXPECTED_MESSAGE);
 
     // спецификация ответа
     public static final ResponseSpecification RESPONSE_SPEC = new ResponseSpecBuilder()
             .expectStatusCode(EXPECTED_CODE)
+            .expectStatusLine(EXPECTED_STATUS_LINE)
             .expectBody(equalTo(new Gson().toJson(DELETE_COURIER_DATA_BAD_REQUEST)))
             .build();
 
