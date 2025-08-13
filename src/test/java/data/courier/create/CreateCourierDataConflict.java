@@ -12,12 +12,14 @@ public class CreateCourierDataConflict {
 
     // ожидаем получить
     private static final Integer EXPECTED_CODE = 409;
+    private static final String EXPECTED_STATUS_LINE = "HTTP/1.1 " + EXPECTED_CODE + " Conflict";
     private static final String EXPECTED_MESSAGE = "Этот логин уже используется";
     private static final CreateCourierDataConflict CREATE_COURIER_DATA_CONFLICT = new CreateCourierDataConflict(EXPECTED_MESSAGE);
 
     // спецификация ответа
     public static final ResponseSpecification RESPONSE_SPECIFICATION = new ResponseSpecBuilder()
             .expectStatusCode(EXPECTED_CODE)
+            .expectStatusLine(EXPECTED_STATUS_LINE)
             .expectBody(equalTo(new Gson().toJson(CREATE_COURIER_DATA_CONFLICT)))
             .build();
 
