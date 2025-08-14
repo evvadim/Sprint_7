@@ -26,6 +26,15 @@ public class GetOrdersPageByPage {
                 .get(Config.getGetOrdersEndpoint());
     }
 
+    @Step("Send GET Request with `page` & `limit` options")
+    public Response getOrdersRequest(Integer limit, Integer page) {
+        return given()
+                .spec(requestSpecification)
+                .queryParam("limit", limit)
+                .queryParam("page", page)
+                .get(Config.getGetOrdersEndpoint());
+    }
+
     @Step("Not Null Response for Get Order Request Check")
     public void successOrderResponseCheck(GetOrdersPageByPageDataSuccess getOrdersPageByPageDataSuccess) {
         assertThat(getOrdersPageByPageDataSuccess.getOrders(), GetOrdersPageByPageDataSuccess.EXPECTED_NOT_NULL);
