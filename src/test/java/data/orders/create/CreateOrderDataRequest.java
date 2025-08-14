@@ -1,7 +1,5 @@
 package data.orders.create;
 
-import data.scooter.ScooterColor;
-
 import java.util.List;
 
 public class CreateOrderDataRequest {
@@ -14,7 +12,7 @@ public class CreateOrderDataRequest {
     private Integer rentTime;
     private String deliveryDate;
     private String comment;
-    private List<ScooterColor> scooterColorList;
+    private List<String> color;
 
     public CreateOrderDataRequest(String firstName,
                                   String lastName,
@@ -24,7 +22,7 @@ public class CreateOrderDataRequest {
                                   Integer rentTime,
                                   String deliveryDate,
                                   String comment,
-                                  List<ScooterColor> scooterColorList) {
+                                  List<String> color) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -33,7 +31,7 @@ public class CreateOrderDataRequest {
         this.rentTime = rentTime;
         this.deliveryDate = deliveryDate;
         this.comment = comment;
-        this.scooterColorList = scooterColorList;
+        this.color = color;
     }
 
     public CreateOrderDataRequest() {
@@ -103,12 +101,12 @@ public class CreateOrderDataRequest {
         this.comment = comment;
     }
 
-    public List<ScooterColor> getScooterColorList() {
-        return scooterColorList;
+    public List<String> getColor() {
+        return color;
     }
 
-    public void setScooterColorList(List<ScooterColor> scooterColorList) {
-        this.scooterColorList = scooterColorList;
+    public void setColor(List<String> color) {
+        this.color = color;
     }
 
 }

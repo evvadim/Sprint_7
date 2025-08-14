@@ -4,7 +4,6 @@ import config.Config;
 import data.orders.CreateOrder;
 import data.orders.create.CreateOrderDataSuccess;
 import data.orders.create.CreateOrderDataRequest;
-import data.scooter.ScooterColor;
 import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
@@ -22,7 +21,7 @@ public class CreateOrderParameterizedTest {
     private final CreateOrderDataRequest createOrderDataRequest;
     Response response;
 
-    public CreateOrderParameterizedTest(List<ScooterColor> scooterColorList) {
+    public CreateOrderParameterizedTest(List<String> color) {
         this.createOrderDataRequest = new CreateOrderDataRequest(Config.getOrderFirstName(),
                 Config.getOrderLastName(),
                 Config.getOrderAddress(),
@@ -31,7 +30,7 @@ public class CreateOrderParameterizedTest {
                 Config.getOrderRentTime(),
                 Config.getOrderDeliveryDate(),
                 Config.getOrderComment(),
-                scooterColorList);
+                color);
     }
 
     @Parameterized.Parameters(name = "Testing Data for Create Order. Set {index}.")
@@ -64,7 +63,8 @@ public class CreateOrderParameterizedTest {
 
         CreateOrderDataSuccess createOrderDataSuccess = response.body().as(CreateOrderDataSuccess.class);
         track = createOrderDataSuccess.getTrack();
-        createOrder.cancelOrderRequest(track);
+        System.out.println(track);
+//        createOrder.cancelOrderRequest(track);
 
     }
 

@@ -3,7 +3,6 @@ package data.orders;
 import config.Config;
 import data.orders.create.CreateOrderDataSuccess;
 import data.orders.create.CreateOrderDataRequest;
-import data.scooter.ScooterColor;
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -25,7 +24,7 @@ public class CreateOrder {
     private Integer rentTime;
     private String deliveryDate;
     private String comment;
-    private List<ScooterColor> scooterColor;
+    private List<String> scooterColor;
     private final CreateOrderDataRequest createOrderDataRequest;
 
     public CreateOrder(CreateOrderDataRequest createOrderDataRequest) {
@@ -38,7 +37,7 @@ public class CreateOrder {
         this.rentTime = createOrderDataRequest.getRentTime();
         this.deliveryDate = createOrderDataRequest.getDeliveryDate();
         this.comment = createOrderDataRequest.getComment();
-        this.scooterColor = createOrderDataRequest.getScooterColorList();
+        this.scooterColor = createOrderDataRequest.getColor();
     }
 
     RequestSpecification requestSpecification = new RequestSpecBuilder()
@@ -131,11 +130,11 @@ public class CreateOrder {
         this.comment = comment;
     }
 
-    public List<ScooterColor> getScooterColor() {
+    public List<String> getScooterColor() {
         return scooterColor;
     }
 
-    public void setScooterColor(List<ScooterColor> scooterColor) {
+    public void setScooterColor(List<String> scooterColor) {
         this.scooterColor = scooterColor;
     }
 

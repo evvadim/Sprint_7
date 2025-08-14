@@ -1,7 +1,7 @@
 package tests.order.get;
 
 import data.orders.GetOrdersPageByPage;
-import data.orders.get.pagebypage.GetOrdersDataSuccess;
+import data.orders.get.pagebypage.GetOrdersPageByPageDataSuccess;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.Before;
@@ -20,11 +20,11 @@ public class GetOrdersPageByPageTest {
     @DisplayName("Default Get Orders Request")
     public void getOrdersTest() {
 
-        Response response = getOrdersPageByPage.getOrderRequest();
-        response.then().spec(GetOrdersDataSuccess.RESPONSE_SPEC);
+        Response response = getOrdersPageByPage.getOrdersRequest();
+        response.then().spec(GetOrdersPageByPageDataSuccess.RESPONSE_SPEC);
 
-        GetOrdersDataSuccess getOrdersDataSuccess = response.body().as(GetOrdersDataSuccess.class);
-        getOrdersPageByPage.successOrderResponseCheck(getOrdersDataSuccess);
+        GetOrdersPageByPageDataSuccess getOrdersPageByPageDataSuccess = response.body().as(GetOrdersPageByPageDataSuccess.class);
+        getOrdersPageByPage.successOrderResponseCheck(getOrdersPageByPageDataSuccess);
 
     }
 

@@ -1,7 +1,7 @@
 package data.orders;
 
 import config.Config;
-import data.orders.get.pagebypage.GetOrdersDataSuccess;
+import data.orders.get.pagebypage.GetOrdersPageByPageDataSuccess;
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
@@ -20,15 +20,15 @@ public class GetOrdersPageByPage {
             .build();
 
     @Step("Send default GET Request without options")
-    public Response getOrderRequest() {
+    public Response getOrdersRequest() {
         return given()
                 .spec(requestSpecification)
                 .get(Config.getGetOrdersEndpoint());
     }
 
     @Step("Not Null Response for Get Order Request Check")
-    public void successOrderResponseCheck(GetOrdersDataSuccess getOrdersDataSuccess) {
-        assertThat(getOrdersDataSuccess.getOrders(), GetOrdersDataSuccess.EXPECTED_NOT_NULL);
+    public void successOrderResponseCheck(GetOrdersPageByPageDataSuccess getOrdersPageByPageDataSuccess) {
+        assertThat(getOrdersPageByPageDataSuccess.getOrders(), GetOrdersPageByPageDataSuccess.EXPECTED_NOT_NULL);
     }
 
 }

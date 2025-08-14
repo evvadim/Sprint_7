@@ -1,6 +1,6 @@
 package data.orders.get.pagebypage.elements;
 
-import data.scooter.ScooterColor;
+import java.util.List;
 
 public class Order {
 
@@ -14,7 +14,7 @@ public class Order {
     private Integer rentTime;
     private String deliveryDate;
     private Integer track;
-    private ScooterColor scooterColor;
+    private List<String> color;
     private String comment;
     private String createdAt;
     private String updatedAt;
@@ -31,7 +31,7 @@ public class Order {
                  Integer rentTime,
                  String deliveryDate,
                  Integer track,
-                 ScooterColor scooterColor,
+                 List<String> color,
                  String comment,
                  String updatedAt,
                  Integer status) {
@@ -46,7 +46,7 @@ public class Order {
         this.rentTime = rentTime;
         this.deliveryDate = deliveryDate;
         this.track = track;
-        this.scooterColor = scooterColor;
+        this.color = color;
         this.comment = comment;
         this.updatedAt = updatedAt;
         this.status = status;
@@ -135,12 +135,12 @@ public class Order {
         this.track = track;
     }
 
-    public ScooterColor getScooterColor() {
-        return scooterColor;
+    public List<String> getColor() {
+        return color;
     }
 
-    public void setScooterColor(ScooterColor scooterColor) {
-        this.scooterColor = scooterColor;
+    public void setColor(List<String> color) {
+        this.color = color;
     }
 
     public String getComment() {
