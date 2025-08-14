@@ -6,7 +6,7 @@ import org.hamcrest.Matcher;
 
 import static org.hamcrest.CoreMatchers.*;
 
-public class LoginCourierDataLoggedIn {
+public class LoginCourierDataSuccess {
 
     private Integer id;
 
@@ -21,11 +21,11 @@ public class LoginCourierDataLoggedIn {
             .expectStatusLine(EXPECTED_STATUS_LINE)
             .build();
 
-    public LoginCourierDataLoggedIn(Integer id) {
+    public LoginCourierDataSuccess(Integer id) {
         this.id = id;
     }
 
-    public LoginCourierDataLoggedIn() {
+    public LoginCourierDataSuccess() {
     }
 
     public Integer getId() {

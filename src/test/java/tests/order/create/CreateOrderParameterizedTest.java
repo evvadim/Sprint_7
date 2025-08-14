@@ -2,7 +2,7 @@ package tests.order.create;
 
 import config.Config;
 import data.orders.CreateOrder;
-import data.orders.create.CreateOrderDataCreated;
+import data.orders.create.CreateOrderDataSuccess;
 import data.orders.create.CreateOrderDataRequest;
 import data.scooter.ScooterColor;
 import io.restassured.response.Response;
@@ -53,17 +53,17 @@ public class CreateOrderParameterizedTest {
     public void createOrder() {
 
         response = createOrder.createOrderRequest();
-        response.then().spec(CreateOrderDataCreated.RESPONSE_SPEC);
-        CreateOrderDataCreated createOrderDataCreated = response.body().as(CreateOrderDataCreated.class);
-        createOrder.successOrderCreatedCheck(createOrderDataCreated);
+        response.then().spec(CreateOrderDataSuccess.RESPONSE_SPEC);
+        CreateOrderDataSuccess createOrderDataSuccess = response.body().as(CreateOrderDataSuccess.class);
+        createOrder.successOrderCreatedCheck(createOrderDataSuccess);
 
     }
 
     @After
     public void tearDown() {
 
-        CreateOrderDataCreated createOrderDataCreated = response.body().as(CreateOrderDataCreated.class);
-        track = createOrderDataCreated.getTrack();
+        CreateOrderDataSuccess createOrderDataSuccess = response.body().as(CreateOrderDataSuccess.class);
+        track = createOrderDataSuccess.getTrack();
         createOrder.cancelOrderRequest(track);
 
     }

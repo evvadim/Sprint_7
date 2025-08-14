@@ -6,7 +6,7 @@ import io.restassured.specification.ResponseSpecification;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class DeleteCourierDataDeleted {
+public class DeleteCourierDataSuccess {
 
     private Boolean ok;
 
@@ -14,7 +14,7 @@ public class DeleteCourierDataDeleted {
     private static final Integer EXPECTED_CODE = 200;
     private static final String EXPECTED_STATUS_LINE = "HTTP/1.1 " + EXPECTED_CODE + " OK";
     private static final Boolean EXPECTED_OK = true;
-    private static final DeleteCourierDataDeleted DELETE_COURIER_DATA_DELETED = new DeleteCourierDataDeleted(EXPECTED_OK);
+    private static final DeleteCourierDataSuccess DELETE_COURIER_DATA_DELETED = new DeleteCourierDataSuccess(EXPECTED_OK);
 
     // спецификация ответа
     public static final ResponseSpecification RESPONSE_SPEC = new ResponseSpecBuilder()
@@ -23,11 +23,11 @@ public class DeleteCourierDataDeleted {
             .expectBody(equalTo(new Gson().toJson(DELETE_COURIER_DATA_DELETED)))
             .build();
 
-    public DeleteCourierDataDeleted(Boolean ok) {
+    public DeleteCourierDataSuccess(Boolean ok) {
         this.ok = ok;
     }
 
-    public DeleteCourierDataDeleted() {
+    public DeleteCourierDataSuccess() {
     }
 
     public Boolean isOk() {

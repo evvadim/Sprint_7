@@ -4,7 +4,7 @@ import config.Config;
 import data.courier.Courier;
 import data.courier.create.CreateCourierDataRequest;
 import data.courier.delete.DeleteCourierDataBadRequest;
-import data.courier.delete.DeleteCourierDataDeleted;
+import data.courier.delete.DeleteCourierDataSuccess;
 import data.courier.delete.DeleteCourierDataNotFound;
 import data.courier.login.LoginCourierDataRequest;
 import org.junit.After;
@@ -28,7 +28,7 @@ public class DeleteCourierTest {
     @Test
     public void deleteCourierValidDataExpectedOk() {
         courier.loginCourierRequest();
-        courier.deleteCourierRequest(DeleteCourierDataDeleted.RESPONSE_SPEC);
+        courier.deleteCourierRequest(DeleteCourierDataSuccess.RESPONSE_SPEC);
     }
 
     @Test

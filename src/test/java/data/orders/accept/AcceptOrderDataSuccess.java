@@ -1,4 +1,4 @@
-package data.courier.create;
+package data.orders.accept;
 
 import com.google.gson.Gson;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -6,31 +6,31 @@ import io.restassured.specification.ResponseSpecification;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class CreateCourierDataCreated {
+public class AcceptOrderDataSuccess {
 
     private Boolean ok;
 
     // ожидаем получить
-    private static final Integer EXPECTED_CODE = 201;
-    private static final String EXPECTED_STATUS_LINE = "HTTP/1.1 " + EXPECTED_CODE + " Created";
+    private static final Integer EXPECTED_CODE = 200;
+    private static final String EXPECTED_STATUS_LINE = "HTTP/1.1 " + EXPECTED_CODE;
     private static final Boolean EXPECTED_OK = true;
-    private static final CreateCourierDataCreated CREATE_COURIER_DATA_CREATED = new CreateCourierDataCreated(EXPECTED_OK);
+    private static final AcceptOrderDataSuccess ACCEPT_ORDER_DATA_ACCEPTED = new AcceptOrderDataSuccess(EXPECTED_OK);
 
     // спецификация ответа
     public static final ResponseSpecification RESPONSE_SPEC = new ResponseSpecBuilder()
             .expectStatusCode(EXPECTED_CODE)
             .expectStatusLine(EXPECTED_STATUS_LINE)
-            .expectBody(equalTo(new Gson().toJson(CREATE_COURIER_DATA_CREATED)))
+            .expectBody(equalTo(new Gson().toJson(ACCEPT_ORDER_DATA_ACCEPTED)))
             .build();
 
-    public CreateCourierDataCreated(Boolean ok) {
+    public AcceptOrderDataSuccess(Boolean ok) {
         this.ok = ok;
     }
 
-    public CreateCourierDataCreated() {
+    public AcceptOrderDataSuccess() {
     }
 
-    public Boolean isOk() {
+    public Boolean getOk() {
         return ok;
     }
 

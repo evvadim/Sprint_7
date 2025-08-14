@@ -3,7 +3,7 @@ package tests.courier.login;
 import config.Config;
 import data.courier.Courier;
 import data.courier.login.LoginCourierDataRequest;
-import data.courier.login.LoginCourierDataLoggedIn;
+import data.courier.login.LoginCourierDataSuccess;
 import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
@@ -23,9 +23,9 @@ public class LoginCourierTest {
     @Test
     public void loginCourierRequest() {
 
-        Response response = courier.loginCourierRequest(LoginCourierDataLoggedIn.RESPONSE_SPEC);
-        LoginCourierDataLoggedIn loginCourierDataLoggedIn = (LoginCourierDataLoggedIn) courier.extractResponseToObject(response, LoginCourierDataLoggedIn.class);
-        courier.successLoginCourierCheck(loginCourierDataLoggedIn);
+        Response response = courier.loginCourierRequest(LoginCourierDataSuccess.RESPONSE_SPEC);
+        LoginCourierDataSuccess loginCourierDataSuccess = (LoginCourierDataSuccess) courier.extractResponseToObject(response, LoginCourierDataSuccess.class);
+        courier.successLoginCourierCheck(loginCourierDataSuccess);
 
     }
 

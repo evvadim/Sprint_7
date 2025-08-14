@@ -2,7 +2,7 @@ package tests.courier.create;
 
 import config.Config;
 import data.courier.create.CreateCourierDataRequest;
-import data.courier.create.CreateCourierDataCreated;
+import data.courier.create.CreateCourierDataSuccess;
 import data.courier.Courier;
 import org.junit.After;
 import org.junit.Before;
@@ -20,7 +20,7 @@ public class CreateCourierTest {
 
     @Test
     public void createCourierValidDataExpectedOk() {
-        courier.createCourierRequest(CreateCourierDataCreated.RESPONSE_SPEC);
+        courier.createCourierRequest(CreateCourierDataSuccess.RESPONSE_SPEC);
     }
 
     @After

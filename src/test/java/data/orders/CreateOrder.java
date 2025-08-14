@@ -1,7 +1,7 @@
 package data.orders;
 
 import config.Config;
-import data.orders.create.CreateOrderDataCreated;
+import data.orders.create.CreateOrderDataSuccess;
 import data.orders.create.CreateOrderDataRequest;
 import data.scooter.ScooterColor;
 import io.qameta.allure.Step;
@@ -55,8 +55,8 @@ public class CreateOrder {
     }
 
     @Step("Not Null Response when Order Created Check")
-    public void successOrderCreatedCheck(CreateOrderDataCreated createOrderDataCreated) {
-        assertThat(createOrderDataCreated.getTrack(), CreateOrderDataCreated.EXPECTED_NOT_NULL);
+    public void successOrderCreatedCheck(CreateOrderDataSuccess createOrderDataSuccess) {
+        assertThat(createOrderDataSuccess.getTrack(), CreateOrderDataSuccess.EXPECTED_NOT_NULL);
     }
 
     @Step("Cancel Order with `track` Request")

@@ -3,7 +3,7 @@ package tests.courier.create;
 import config.Config;
 import data.courier.create.CreateCourierDataBadRequest;
 import data.courier.create.CreateCourierDataRequest;
-import data.courier.create.CreateCourierDataCreated;
+import data.courier.create.CreateCourierDataSuccess;
 import data.courier.Courier;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;

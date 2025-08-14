@@ -3,7 +3,7 @@ package data.courier;
 import config.Config;
 import data.courier.create.CreateCourierDataRequest;
 import data.courier.login.LoginCourierDataRequest;
-import data.courier.login.LoginCourierDataLoggedIn;
+import data.courier.login.LoginCourierDataSuccess;
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -51,7 +51,6 @@ public class Courier {
                 .spec(requestSpecification)
                 .body(createCourierDataRequest)
                 .post(Config.getCreateCourierEndpoint());
-//        this.id = loginCourierRequest(null).then().extract().as(LoginCourierDataLoggedIn.class).getId();
 
         if (specification != null) {
             checkResponseSpecs(response, specification);
@@ -74,7 +73,7 @@ public class Courier {
                 .spec(requestSpecification)
                 .body(loginCourierDataRequest)
                 .post(Config.getLoginCourierEndpoint());
-        this.id = response.then().extract().as(LoginCourierDataLoggedIn.class).getId();
+        this.id = response.then().extract().as(LoginCourierDataSuccess.class).getId();
 
         if (specification != null) {
             checkResponseSpecs(response, specification);
@@ -128,8 +127,8 @@ public class Courier {
     }
 
     @Step("Not Null Response when Courier Login Check")
-    public void successLoginCourierCheck(LoginCourierDataLoggedIn loginCourierDataLoggedIn) {
-        assertThat(loginCourierDataLoggedIn.getId(), LoginCourierDataLoggedIn.EXPECTED_NOT_NULL);
+    public void successLoginCourierCheck(LoginCourierDataSuccess loginCourierDataSuccess) {
+        assertThat(loginCourierDataSuccess.getId(), LoginCourierDataSuccess.EXPECTED_NOT_NULL);
     }
 
     public String getLogin() {
