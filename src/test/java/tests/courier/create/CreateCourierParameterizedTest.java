@@ -59,7 +59,7 @@ public class CreateCourierParameterizedTest {
         createCourierParamData = new Courier(createCourierDataRequest);
 
         if (isCourierShouldBeCreated) {
-            createCourierParamData.createCourierRequest(CreateCourierDataCreated.RESPONSE_SPEC);
+            createCourierParamData.createCourierRequest(CreateCourierDataSuccess.RESPONSE_SPEC);
         } else {
             createCourierParamData.createCourierRequest(CreateCourierDataBadRequest.RESPONSE_SPEC);
         }
