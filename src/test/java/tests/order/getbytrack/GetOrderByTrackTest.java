@@ -1,12 +1,19 @@
 package tests.order.getbytrack;
 
+import config.Config;
+import data.orders.CancelOrder;
+import data.orders.CreateOrder;
 import data.orders.GetOrderByTrack;
-import data.orders.GetOrdersPageByPage;
+import data.orders.create.CreateOrderDataRequest;
+import data.orders.create.CreateOrderDataSuccess;
 import data.orders.get.bytrack.GetOrderByTrackDataSuccess;
-import data.orders.get.pagebypage.GetOrdersPageByPageDataSuccess;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
 
 public class GetOrderByTrackTest {
 
@@ -15,27 +22,44 @@ public class GetOrderByTrackTest {
     @Before
     public void setUp() {
         
-        // запросим список заказов и возьмем случайный
-        GetOrdersPageByPage getOrdersPageByPage = new GetOrdersPageByPage();
-        Response responseDefault = getOrdersPageByPage.getOrdersRequest(1, 0);
-        GetOrdersPageByPageDataSuccess getOrdersPageByPageDataSuccessDefault = responseDefault.body().as(GetOrdersPageByPageDataSuccess.class);
-        Integer total = getOrdersPageByPageDataSuccessDefault.getPageInfo().getTotal();
+        // создадим заказ
+        CreateOrderDataRequest createOrderDataRequest = new CreateOrderDataRequest(Config.getOrderFirstName(),
+                Config.getOrderLastName(),
+                Config.getOrderAddress(),
+                Config.getOrderMetroStation(),
+                Config.getOrderPhone(),
+                Config.getOrderRentTime(),
+                Config.getOrderDeliveryDate(),
+                Config.getOrderComment(),
+                List.of(Config.getScooterColorGrey()));
 
-        Response response = getOrdersPageByPage.getOrdersRequest(1, (int) (Math.random() * (total - 1)));
-        GetOrdersPageByPageDataSuccess getOrdersPageByPageDataSuccess = response.body().as(GetOrdersPageByPageDataSuccess.class);
-        
-        // из случайного заказа извлекаем `track`
-        track = getOrdersPageByPageDataSuccess.getOrders().get(0).getTrack();
+        CreateOrder createOrder = new CreateOrder(createOrderDataRequest);
+
+        Response response = createOrder.createOrderRequest();
+        CreateOrderDataSuccess createOrderDataSuccess = response.body().as(CreateOrderDataSuccess.class);
+
+        // извлекаем из ответа данные поля `track`
+        track = createOrderDataSuccess.getTrack();
 
     }
 
     @Test
-    public void getOrderByTrackTest() {
+    @DisplayName("Get Order by exist `track` number is Success")
+    public void getOrderByTrackSuccessTest() {
 
         GetOrderByTrack getOrderByTrack = new GetOrderByTrack(track);
         Response response = getOrderByTrack.getOrderByTrackRequest();
 
         GetOrderByTrackDataSuccess getOrderByTrackDataSuccess = response.body().as(GetOrderByTrackDataSuccess.class);
+        getOrderByTrack.successOrderResponseCheck(getOrderByTrackDataSuccess);
+
+    }
+
+    @After
+    public void tearDown() {
+
+        // отменяем созданный заказ
+        new CancelOrder(track).cancelOrderRequest();
 
     }
 }
