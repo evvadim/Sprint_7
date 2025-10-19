@@ -16,7 +16,7 @@ import org.junit.runners.Parameterized;
 public class CreateCourierParameterizedTest {
 
     private final CreateCourierDataRequest createCourierWithValidData = new CreateCourierDataRequest(Config.getUserLogin(), Config.getUserPassword(), Config.getUserFirstName());
-    private Courier createCourierParamData;
+    private Courier courierParamData;
 
     // переменные для параметризации
     private final CreateCourierDataRequest createCourierDataRequest;
@@ -56,12 +56,12 @@ public class CreateCourierParameterizedTest {
     @DisplayName("Create Courier test. Positive with required fields, Negative without one of required fields.")
     public void createCourierWithData() {
 
-        createCourierParamData = new Courier(createCourierDataRequest);
+        courierParamData = new Courier(createCourierDataRequest);
 
         if (isCourierShouldBeCreated) {
-            createCourierParamData.createCourierRequest(CreateCourierDataSuccess.RESPONSE_SPEC);
+            courierParamData.createCourierRequest(CreateCourierDataSuccess.RESPONSE_SPEC);
         } else {
-            createCourierParamData.createCourierRequest(CreateCourierDataBadRequest.RESPONSE_SPEC);
+            courierParamData.createCourierRequest(CreateCourierDataBadRequest.RESPONSE_SPEC);
         }
 
     }
@@ -69,8 +69,8 @@ public class CreateCourierParameterizedTest {
     @After
     public void tearDown() {
         if (isCourierShouldBeCreated) {
-            createCourierParamData.loginCourierRequest();
-            createCourierParamData.deleteCourierRequest();
+            courierParamData.loginCourierRequest();
+            courierParamData.deleteCourierRequest();
         }
     }
 
