@@ -17,11 +17,19 @@ public class GetOrdersPageByPageTest {
     }
 
     @Test
-    @DisplayName("Default Get Orders Request")
-    public void getOrdersTest() {
+    @DisplayName("Default Get Orders Request. Status line check")
+    public void getOrdersTestStatusLineCheck() {
 
         Response response = getOrdersPageByPage.getOrdersRequest();
         response.then().spec(GetOrdersPageByPageDataSuccess.RESPONSE_SPEC);
+
+    }
+
+    @Test
+    @DisplayName("Default Get Orders Request. Body check")
+    public void getOrdersTestBodyCheck() {
+
+        Response response = getOrdersPageByPage.getOrdersRequest();
 
         GetOrdersPageByPageDataSuccess getOrdersPageByPageDataSuccess = response.body().as(GetOrdersPageByPageDataSuccess.class);
         getOrdersPageByPage.successOrderResponseCheck(getOrdersPageByPageDataSuccess);
