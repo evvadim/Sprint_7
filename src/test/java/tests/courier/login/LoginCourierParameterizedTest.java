@@ -31,8 +31,7 @@ public class LoginCourierParameterizedTest {
     @Parameterized.Parameters(name = "Testing Data for Login Courier")
     public static Object[][] getLoginData() {
         return new Object[][] {
-//                {Config.getUserLogin(), null},
-                {Config.getUserLogin(), ""},
+                {Config.getUserLogin(), null},
                 {null, Config.getUserPassword()},
                 {Config.getUserLogin(), Config.getWrongUserPassword()},
                 {Config.getWrongUserLogin(), Config.getUserPassword()},
@@ -56,7 +55,6 @@ public class LoginCourierParameterizedTest {
     public void loginCourierWithData() {
 
         Courier loginCourierParamData = new Courier(loginCourierDataRequest);
-//        boolean isIncompleteLoginData = (loginCourierDataRequest.getLogin() == null) || (loginCourierDataRequest.getPassword() == null);
         boolean isIncompleteLoginData = (loginCourierDataRequest.getLogin() == null) || (loginCourierDataRequest.getPassword() == null) || (loginCourierDataRequest.getPassword().isEmpty());
 
         if (isIncompleteLoginData) {
