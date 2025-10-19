@@ -1,6 +1,7 @@
 package tests.order.create;
 
 import config.Config;
+import data.orders.CancelOrder;
 import data.orders.CreateOrder;
 import data.orders.create.CreateOrderDataSuccess;
 import data.orders.create.CreateOrderDataRequest;
@@ -63,8 +64,7 @@ public class CreateOrderParameterizedTest {
 
         CreateOrderDataSuccess createOrderDataSuccess = response.body().as(CreateOrderDataSuccess.class);
         track = createOrderDataSuccess.getTrack();
-        System.out.println(track);
-//        createOrder.cancelOrderRequest(track);
+        new CancelOrder(track).cancelOrderRequest();
 
     }
 

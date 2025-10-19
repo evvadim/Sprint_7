@@ -58,14 +58,6 @@ public class CreateOrder {
         assertThat(createOrderDataSuccess.getTrack(), CreateOrderDataSuccess.EXPECTED_NOT_NULL);
     }
 
-    @Step("Cancel Order with `track` Request")
-    public void cancelOrderRequest(Integer track) {
-        given()
-                .spec(requestSpecification)
-                .queryParam("track", track)
-                .put(Config.getCancelOrderEndpoint());
-    }
-
     public String getFirstName() {
         return firstName;
     }
