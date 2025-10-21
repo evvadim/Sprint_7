@@ -1,6 +1,7 @@
 package data.orders;
 
 import config.Config;
+import config.endpoints.Endpoints;
 import data.orders.get.pagebypage.GetOrdersPageByPageDataSuccess;
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
@@ -23,7 +24,7 @@ public class GetOrdersPageByPage {
     public Response getOrdersRequest() {
         return given()
                 .spec(requestSpecification)
-                .get(Config.getGetOrdersEndpoint());
+                .get(Endpoints.GET_ORDERS);
     }
 
     @Step("Send GET Request with `page` & `limit` options")
@@ -32,7 +33,7 @@ public class GetOrdersPageByPage {
                 .spec(requestSpecification)
                 .queryParam("limit", limit)
                 .queryParam("page", page)
-                .get(Config.getGetOrdersEndpoint());
+                .get(Endpoints.GET_ORDERS);
     }
 
     @Step("Not Null Response for Get Order Request Check")

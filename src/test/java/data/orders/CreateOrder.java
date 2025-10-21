@@ -1,6 +1,7 @@
 package data.orders;
 
 import config.Config;
+import config.endpoints.Endpoints;
 import data.orders.create.CreateOrderDataSuccess;
 import data.orders.create.CreateOrderDataRequest;
 import io.qameta.allure.Step;
@@ -50,7 +51,7 @@ public class CreateOrder {
         return given()
                 .spec(requestSpecification)
                 .body(createOrderDataRequest)
-                .post(Config.getCreateOrderEndpoint());
+                .post(Endpoints.CREATE_COURIER);
     }
 
     @Step("Not Null Response when Order Created Check")

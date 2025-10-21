@@ -8,16 +8,6 @@ public class Config {
 
     private static final String baseURI;
 
-    private static final String createCourierEndpoint;
-    private static final String loginCourierEndpoint;
-    private static final String deleteCourierEndpoint;
-
-    private static final String createOrderEndpoint;
-    private static final String cancelOrderEndpoint;
-    private static final String getOrdersEndpoint;
-    private static final String acceptOrderEndpoint;
-    private static final String getOrderByTrackEndpoint;
-
     private static final String userLogin;
     private static final String userPassword;
     private static final String userFirstName;
@@ -47,16 +37,6 @@ public class Config {
 
         baseURI = properties.getProperty("baseURI");
 
-        createCourierEndpoint = properties.getProperty("createCourierEndpoint");
-        loginCourierEndpoint = properties.getProperty("loginCourierEndpoint");
-        deleteCourierEndpoint = properties.getProperty("deleteCourierEndpoint");
-
-        createOrderEndpoint = properties.getProperty("createOrderEndpoint");
-        cancelOrderEndpoint = properties.getProperty("cancelOrderEndpoint");
-        getOrdersEndpoint = properties.getProperty("getOrdersEndpoint");
-        acceptOrderEndpoint = properties.getProperty("acceptOrderEndpoint");
-        getOrderByTrackEndpoint = properties.getProperty("getOrderByTrackEndpoint");
-
         userLogin = properties.getProperty("courierLogin");
         userPassword = properties.getProperty("courierPassword");
         userFirstName = properties.getProperty("courierFirstName");
@@ -81,41 +61,6 @@ public class Config {
     public static String getBaseURI() {
         return baseURI;
     }
-
-
-    public static String getCreateCourierEndpoint() {
-        return createCourierEndpoint;
-    }
-
-    public static String getLoginCourierEndpoint() {
-        return loginCourierEndpoint;
-    }
-
-    public static String getDeleteCourierEndpoint() {
-        return deleteCourierEndpoint;
-    }
-
-
-    public static String getCreateOrderEndpoint() {
-        return createOrderEndpoint;
-    }
-
-    public static String getCancelOrderEndpoint() {
-        return cancelOrderEndpoint;
-    }
-
-    public static String getGetOrdersEndpoint() {
-        return getOrdersEndpoint;
-    }
-
-    public static String getAcceptOrderEndpoint() {
-        return acceptOrderEndpoint;
-    }
-
-    public static String getGetOrderByTrackEndpoint() {
-        return getOrderByTrackEndpoint;
-    }
-
 
     public static String getUserLogin() {
         return userLogin;

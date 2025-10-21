@@ -1,6 +1,7 @@
 package data.orders;
 
 import config.Config;
+import config.endpoints.Endpoints;
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -29,7 +30,7 @@ public class AcceptOrder {
     private Response acceptOrderAndCheckResponseSpecs(ResponseSpecification specification) {
 
         String putPath =
-                (id == null) ? (Config.getAcceptOrderEndpoint()) : (String.format("%s/%d", Config.getAcceptOrderEndpoint(), id));
+                (id == null) ? (Endpoints.ACCEPT_ORDER) : (String.format("%s/%d", Endpoints.ACCEPT_ORDER, id));
 
         Response response = given()
                 .spec(requestSpecification)

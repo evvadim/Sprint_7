@@ -1,6 +1,7 @@
 package data.orders;
 
 import config.Config;
+import config.endpoints.Endpoints;
 import data.orders.get.bytrack.GetOrderByTrackDataSuccess;
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
@@ -26,7 +27,7 @@ public class GetOrderByTrack {
         return given()
                 .spec(requestSpecification)
                 .queryParam("t", t)
-                .get(Config.getGetOrderByTrackEndpoint());
+                .get(Endpoints.GET_ORDER_BY_TRACK);
     }
 
     @Step("Not Null Response for Get Order By Track Request Check")

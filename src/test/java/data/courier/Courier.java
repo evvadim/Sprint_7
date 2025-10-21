@@ -1,6 +1,7 @@
 package data.courier;
 
 import config.Config;
+import config.endpoints.Endpoints;
 import data.courier.create.CreateCourierDataRequest;
 import data.courier.login.LoginCourierDataRequest;
 import data.courier.login.LoginCourierDataSuccess;
@@ -50,7 +51,7 @@ public class Courier {
         Response response = given()
                 .spec(requestSpecification)
                 .body(createCourierDataRequest)
-                .post(Config.getCreateCourierEndpoint());
+                .post(Endpoints.CREATE_COURIER);
 
         if (specification != null) {
             checkResponseSpecs(response, specification);
@@ -72,7 +73,7 @@ public class Courier {
         Response response = given()
                 .spec(requestSpecification)
                 .body(loginCourierDataRequest)
-                .post(Config.getLoginCourierEndpoint());
+                .post(Endpoints.LOGIN_COURIER);
         this.id = response.then().extract().as(LoginCourierDataSuccess.class).getId();
 
         if (specification != null) {
@@ -94,7 +95,7 @@ public class Courier {
     private Response deleteCourierRequestAndCheckResponseSpecs(ResponseSpecification specification) {
 
         String deletePath =
-                (id == null) ? (Config.getDeleteCourierEndpoint()) : (String.format("%s/%d", Config.getDeleteCourierEndpoint(), id));
+                (id == null) ? (Endpoints.DELETE_COURIER) : (String.format("%s/%d", Endpoints.DELETE_COURIER, id));
 
         Response response = given()
                 .spec(requestSpecification)

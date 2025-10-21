@@ -1,6 +1,7 @@
 package data.orders;
 
 import config.Config;
+import config.endpoints.Endpoints;
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -30,7 +31,7 @@ public class CancelOrder {
         return given()
                 .spec(requestSpecification)
                 .queryParam("track", track)
-                .put(Config.getCancelOrderEndpoint());
+                .put(Endpoints.CANCEL_ORDER);
     }
 
     public Integer getTrack() {
