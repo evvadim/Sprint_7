@@ -2,7 +2,7 @@ package data.orders.get.pagebypage.elements;
 
 import java.util.List;
 
-public class Order {
+public class Orders {
 
     private Integer id;
     private Integer courierId;
@@ -20,21 +20,21 @@ public class Order {
     private String updatedAt;
     private Integer status;
 
-    public Order(String createdAt,
-                 Integer id,
-                 Integer courierId,
-                 String firstName,
-                 String lastName,
-                 String address,
-                 String metroStation,
-                 String phone,
-                 Integer rentTime,
-                 String deliveryDate,
-                 Integer track,
-                 List<String> color,
-                 String comment,
-                 String updatedAt,
-                 Integer status) {
+    public Orders(String createdAt,
+                  Integer id,
+                  Integer courierId,
+                  String firstName,
+                  String lastName,
+                  String address,
+                  String metroStation,
+                  String phone,
+                  Integer rentTime,
+                  String deliveryDate,
+                  Integer track,
+                  List<String> color,
+                  String comment,
+                  String updatedAt,
+                  Integer status) {
         this.createdAt = createdAt;
         this.id = id;
         this.courierId = courierId;
@@ -52,7 +52,7 @@ public class Order {
         this.status = status;
     }
 
-    public Order() {
+    public Orders() {
     }
 
     public Integer getId() {

@@ -1,4 +1,4 @@
-package data.orders;
+package requests.orders;
 
 import config.Config;
 import config.endpoints.Endpoints;
@@ -11,9 +11,9 @@ import io.restassured.specification.RequestSpecification;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class GetOrdersPageByPage {
+public class GetOrdersPageByPageRequest {
 
-    public GetOrdersPageByPage() {
+    public GetOrdersPageByPageRequest() {
     }
 
     RequestSpecification requestSpecification = new RequestSpecBuilder()
