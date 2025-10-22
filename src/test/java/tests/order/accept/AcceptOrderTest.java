@@ -3,7 +3,8 @@ package tests.order.accept;
 import config.Config;
 import data.courier.Courier;
 import data.courier.create.CreateCourierDataRequest;
-import data.orders.AcceptOrder;
+import data.orders.AcceptOrderData;
+import requests.orders.AcceptOrderRequest;
 import requests.orders.CreateOrderRequest;
 import data.orders.GetOrderByTrackData;
 import data.orders.accept.AcceptOrderDataSuccess;
@@ -56,9 +57,10 @@ public class AcceptOrderTest {
     @Test
     public void acceptOrder() {
 
-        AcceptOrder acceptOrder = new AcceptOrder(getOrderByTrackDataSuccess.getOrder().getId(), courier.getId());
-        Response response = acceptOrder.acceptOrderRequest();
-        acceptOrder.checkResponseSpecs(response, AcceptOrderDataSuccess.RESPONSE_SPEC);
+        AcceptOrderData acceptOrderData = new AcceptOrderData(getOrderByTrackDataSuccess.getOrder().getId(), courier.getId());
+        AcceptOrderRequest acceptOrderRequest = new AcceptOrderRequest(acceptOrderData);
+        Response response = acceptOrderRequest.acceptOrderRequest();
+        acceptOrderRequest.checkResponseSpecs(response, AcceptOrderDataSuccess.RESPONSE_SPEC);
 
     }
 

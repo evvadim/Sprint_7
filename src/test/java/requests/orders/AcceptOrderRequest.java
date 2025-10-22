@@ -1,7 +1,8 @@
-package data.orders;
+package requests.orders;
 
 import config.Config;
 import config.endpoints.Endpoints;
+import data.orders.AcceptOrderData;
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -11,14 +12,14 @@ import io.restassured.specification.ResponseSpecification;
 
 import static io.restassured.RestAssured.given;
 
-public class AcceptOrder {
+public class AcceptOrderRequest {
 
-    private Integer id;
-    private Integer courierId;
+    private final Integer id;
+    private final Integer courierId;
 
-    public AcceptOrder(Integer id, Integer courierId) {
-        this.id = id;
-        this.courierId = courierId;
+    public AcceptOrderRequest(AcceptOrderData acceptOrderData) {
+        this.id = acceptOrderData.getId();
+        this.courierId = acceptOrderData.getCourierId();
     }
 
     RequestSpecification requestSpecification = new RequestSpecBuilder()
@@ -58,19 +59,4 @@ public class AcceptOrder {
         response.then().spec(responseSpecification);
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getCourierId() {
-        return courierId;
-    }
-
-    public void setCourierId(Integer courierId) {
-        this.courierId = courierId;
-    }
 }
