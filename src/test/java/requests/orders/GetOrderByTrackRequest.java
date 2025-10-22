@@ -1,7 +1,8 @@
-package data.orders;
+package requests.orders;
 
 import config.Config;
 import config.endpoints.Endpoints;
+import data.orders.GetOrderByTrackData;
 import data.orders.get.bytrack.GetOrderByTrackDataSuccess;
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
@@ -11,12 +12,12 @@ import io.restassured.specification.RequestSpecification;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class GetOrderByTrack {
+public class GetOrderByTrackRequest {
 
-    private Integer t;
+    private final Integer t;
 
-    public GetOrderByTrack(Integer t) {
-        this.t = t;
+    public GetOrderByTrackRequest(GetOrderByTrackData getOrderByTrackData) {
+        this.t = getOrderByTrackData.getT();
     }
 
     RequestSpecification requestSpecification = new RequestSpecBuilder()
@@ -35,7 +36,4 @@ public class GetOrderByTrack {
         assertThat(getOrderByTrackDataSuccess.getOrder(), GetOrderByTrackDataSuccess.EXPECTED_NOT_NULL);
     }
 
-    public Integer getT() {
-        return t;
-    }
 }

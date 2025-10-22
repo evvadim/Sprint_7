@@ -5,7 +5,7 @@ import data.courier.Courier;
 import data.courier.create.CreateCourierDataRequest;
 import data.orders.AcceptOrder;
 import requests.orders.CreateOrderRequest;
-import data.orders.GetOrderByTrack;
+import data.orders.GetOrderByTrackData;
 import data.orders.accept.AcceptOrderDataSuccess;
 import data.orders.create.CreateOrderDataSuccess;
 import data.orders.CreateOrderData;
@@ -13,6 +13,7 @@ import data.orders.get.bytrack.GetOrderByTrackDataSuccess;
 import io.restassured.response.Response;
 import org.junit.Before;
 import org.junit.Test;
+import requests.orders.GetOrderByTrackRequest;
 
 import java.util.List;
 
@@ -47,9 +48,9 @@ public class AcceptOrderTest {
         createOrderDataSuccess = createOrderRequest.createOrderRequest().body().as(CreateOrderDataSuccess.class);
 
         // по номеру `track` получим `id` заказа
-        GetOrderByTrack getOrderByTrack = new GetOrderByTrack(createOrderDataSuccess.getTrack());
-        getOrderByTrackDataSuccess = getOrderByTrack.getOrderByTrackRequest().body().as(GetOrderByTrackDataSuccess.class);
-
+        GetOrderByTrackData getOrderByTrackData = new GetOrderByTrackData(createOrderDataSuccess.getTrack());
+        GetOrderByTrackRequest getOrderByTrackRequest = new GetOrderByTrackRequest(getOrderByTrackData);
+        getOrderByTrackDataSuccess = getOrderByTrackRequest.getOrderByTrackRequest().body().as(GetOrderByTrackDataSuccess.class);
     }
 
     @Test

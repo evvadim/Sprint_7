@@ -3,7 +3,7 @@ package tests.order.getbytrack;
 import config.Config;
 import data.orders.CancelOrderData;
 import requests.orders.CreateOrderRequest;
-import data.orders.GetOrderByTrack;
+import data.orders.GetOrderByTrackData;
 import data.orders.CreateOrderData;
 import data.orders.create.CreateOrderDataSuccess;
 import data.orders.get.bytrack.GetOrderByTrackDataSuccess;
@@ -13,6 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import requests.orders.CancelOrderRequest;
+import requests.orders.GetOrderByTrackRequest;
 
 import java.util.List;
 
@@ -48,12 +49,12 @@ public class GetOrderByTrackTest {
     @DisplayName("Get Order by exist `track` number is Success")
     public void getOrderByTrackSuccessTest() {
 
-        GetOrderByTrack getOrderByTrack = new GetOrderByTrack(track);
-        Response response = getOrderByTrack.getOrderByTrackRequest();
+        GetOrderByTrackData getOrderByTrackData = new GetOrderByTrackData(track);
+        GetOrderByTrackRequest getOrderByTrackRequest = new GetOrderByTrackRequest(getOrderByTrackData);
+        Response response = getOrderByTrackRequest.getOrderByTrackRequest();
 
         GetOrderByTrackDataSuccess getOrderByTrackDataSuccess = response.body().as(GetOrderByTrackDataSuccess.class);
-        getOrderByTrack.successOrderResponseCheck(getOrderByTrackDataSuccess);
-
+        getOrderByTrackRequest.successOrderResponseCheck(getOrderByTrackDataSuccess);
     }
 
     @After
