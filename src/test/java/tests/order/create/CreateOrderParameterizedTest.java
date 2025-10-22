@@ -1,7 +1,7 @@
 package tests.order.create;
 
 import config.Config;
-import data.orders.CancelOrder;
+import data.orders.CancelOrderData;
 import data.orders.CreateOrder;
 import data.orders.create.CreateOrderDataSuccess;
 import data.orders.create.CreateOrderDataRequest;
@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import requests.orders.CancelOrderRequest;
 
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class CreateOrderParameterizedTest {
 
         CreateOrderDataSuccess createOrderDataSuccess = response.body().as(CreateOrderDataSuccess.class);
         track = createOrderDataSuccess.getTrack();
-        new CancelOrder(track).cancelOrderRequest();
+        new CancelOrderRequest(new CancelOrderData(track)).cancelOrderRequest();
 
     }
 

@@ -1,7 +1,7 @@
 package tests.order.getbytrack;
 
 import config.Config;
-import data.orders.CancelOrder;
+import data.orders.CancelOrderData;
 import data.orders.CreateOrder;
 import data.orders.GetOrderByTrack;
 import data.orders.create.CreateOrderDataRequest;
@@ -12,6 +12,7 @@ import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import requests.orders.CancelOrderRequest;
 
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class GetOrderByTrackTest {
     public void tearDown() {
 
         // отменяем созданный заказ
-        new CancelOrder(track).cancelOrderRequest();
+        new CancelOrderRequest(new CancelOrderData(track)).cancelOrderRequest();
 
     }
 }

@@ -1,7 +1,8 @@
-package data.orders;
+package requests.orders;
 
 import config.Config;
 import config.endpoints.Endpoints;
+import data.orders.CancelOrderData;
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -10,15 +11,12 @@ import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
 
-public class CancelOrder {
+public class CancelOrderRequest {
 
-    private Integer track;
+    private final Integer track;
 
-    public CancelOrder(Integer track) {
-        this.track = track;
-    }
-
-    public CancelOrder() {
+    public CancelOrderRequest(CancelOrderData cancelOrderData) {
+        this.track = cancelOrderData.getTrack();
     }
 
     RequestSpecification requestSpecification = new RequestSpecBuilder()
@@ -34,11 +32,4 @@ public class CancelOrder {
                 .put(Endpoints.CANCEL_ORDER);
     }
 
-    public Integer getTrack() {
-        return track;
-    }
-
-    public void setTrack(Integer track) {
-        this.track = track;
-    }
 }
