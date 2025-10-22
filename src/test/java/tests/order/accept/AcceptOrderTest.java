@@ -4,11 +4,11 @@ import config.Config;
 import data.courier.Courier;
 import data.courier.create.CreateCourierDataRequest;
 import data.orders.AcceptOrder;
-import data.orders.CreateOrder;
+import requests.orders.CreateOrderRequest;
 import data.orders.GetOrderByTrack;
 import data.orders.accept.AcceptOrderDataSuccess;
 import data.orders.create.CreateOrderDataSuccess;
-import data.orders.create.CreateOrderDataRequest;
+import data.orders.CreateOrderData;
 import data.orders.get.bytrack.GetOrderByTrackDataSuccess;
 import io.restassured.response.Response;
 import org.junit.Before;
@@ -33,7 +33,7 @@ public class AcceptOrderTest {
         courier.loginCourierRequest();
 
         // создадим заказ
-        CreateOrderDataRequest createOrderDataRequest = new CreateOrderDataRequest(Config.getOrderFirstName(),
+        CreateOrderData createOrderData = new CreateOrderData(Config.getOrderFirstName(),
                 Config.getOrderLastName(),
                 Config.getOrderAddress(),
                 Config.getOrderMetroStation(),
@@ -43,8 +43,8 @@ public class AcceptOrderTest {
                 Config.getOrderComment(),
                 List.of(Config.getScooterColorBlack()));
 
-        CreateOrder createOrder = new CreateOrder(createOrderDataRequest);
-        createOrderDataSuccess = createOrder.createOrderRequest().body().as(CreateOrderDataSuccess.class);
+        CreateOrderRequest createOrderRequest = new CreateOrderRequest(createOrderData);
+        createOrderDataSuccess = createOrderRequest.createOrderRequest().body().as(CreateOrderDataSuccess.class);
 
         // по номеру `track` получим `id` заказа
         GetOrderByTrack getOrderByTrack = new GetOrderByTrack(createOrderDataSuccess.getTrack());

@@ -1,8 +1,8 @@
-package data.orders.create;
+package data.orders;
 
 import java.util.List;
 
-public class CreateOrderDataRequest {
+public class CreateOrderData {
 
     private String firstName;
     private String lastName;
@@ -14,15 +14,15 @@ public class CreateOrderDataRequest {
     private String comment;
     private List<String> color;
 
-    public CreateOrderDataRequest(String firstName,
-                                  String lastName,
-                                  String address,
-                                  Integer metroStation,
-                                  String phone,
-                                  Integer rentTime,
-                                  String deliveryDate,
-                                  String comment,
-                                  List<String> color) {
+    public CreateOrderData(String firstName,
+                           String lastName,
+                           String address,
+                           Integer metroStation,
+                           String phone,
+                           Integer rentTime,
+                           String deliveryDate,
+                           String comment,
+                           List<String> color) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -34,7 +34,7 @@ public class CreateOrderDataRequest {
         this.color = color;
     }
 
-    public CreateOrderDataRequest() {
+    public CreateOrderData() {
     }
 
     public String getFirstName() {

@@ -2,9 +2,9 @@ package tests.order.getbytrack;
 
 import config.Config;
 import data.orders.CancelOrderData;
-import data.orders.CreateOrder;
+import requests.orders.CreateOrderRequest;
 import data.orders.GetOrderByTrack;
-import data.orders.create.CreateOrderDataRequest;
+import data.orders.CreateOrderData;
 import data.orders.create.CreateOrderDataSuccess;
 import data.orders.get.bytrack.GetOrderByTrackDataSuccess;
 import io.qameta.allure.junit4.DisplayName;
@@ -24,7 +24,7 @@ public class GetOrderByTrackTest {
     public void setUp() {
         
         // создадим заказ
-        CreateOrderDataRequest createOrderDataRequest = new CreateOrderDataRequest(Config.getOrderFirstName(),
+        CreateOrderData createOrderData = new CreateOrderData(Config.getOrderFirstName(),
                 Config.getOrderLastName(),
                 Config.getOrderAddress(),
                 Config.getOrderMetroStation(),
@@ -34,9 +34,9 @@ public class GetOrderByTrackTest {
                 Config.getOrderComment(),
                 List.of(Config.getScooterColorGrey()));
 
-        CreateOrder createOrder = new CreateOrder(createOrderDataRequest);
+        CreateOrderRequest createOrderRequest = new CreateOrderRequest(createOrderData);
 
-        Response response = createOrder.createOrderRequest();
+        Response response = createOrderRequest.createOrderRequest();
         CreateOrderDataSuccess createOrderDataSuccess = response.body().as(CreateOrderDataSuccess.class);
 
         // извлекаем из ответа данные поля `track`

@@ -2,9 +2,9 @@ package tests.order.create;
 
 import config.Config;
 import data.orders.CancelOrderData;
-import data.orders.CreateOrder;
+import requests.orders.CreateOrderRequest;
 import data.orders.create.CreateOrderDataSuccess;
-import data.orders.create.CreateOrderDataRequest;
+import data.orders.CreateOrderData;
 import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
@@ -18,13 +18,13 @@ import java.util.List;
 @RunWith(Parameterized.class)
 public class CreateOrderParameterizedTest {
 
-    CreateOrder createOrder;
+    CreateOrderRequest createOrderRequest;
     Integer track;
-    private final CreateOrderDataRequest createOrderDataRequest;
+    private final CreateOrderData createOrderData;
     Response response;
 
     public CreateOrderParameterizedTest(List<String> color) {
-        this.createOrderDataRequest = new CreateOrderDataRequest(Config.getOrderFirstName(),
+        this.createOrderData = new CreateOrderData(Config.getOrderFirstName(),
                 Config.getOrderLastName(),
                 Config.getOrderAddress(),
                 Config.getOrderMetroStation(),
@@ -47,16 +47,16 @@ public class CreateOrderParameterizedTest {
 
     @Before
     public void setUp() {
-        createOrder = new CreateOrder(createOrderDataRequest);
+        createOrderRequest = new CreateOrderRequest(createOrderData);
     }
 
     @Test
     public void createOrder() {
 
-        response = createOrder.createOrderRequest();
+        response = createOrderRequest.createOrderRequest();
         response.then().spec(CreateOrderDataSuccess.RESPONSE_SPEC);
         CreateOrderDataSuccess createOrderDataSuccess = response.body().as(CreateOrderDataSuccess.class);
-        createOrder.successOrderCreatedCheck(createOrderDataSuccess);
+        createOrderRequest.successOrderCreatedCheck(createOrderDataSuccess);
 
     }
 
