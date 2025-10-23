@@ -8,6 +8,7 @@ import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import requests.courier.CreateCourierRequest;
 import requests.courier.DeleteCourierRequest;
 import requests.courier.LoginCourierRequest;
 
@@ -20,7 +21,7 @@ public class CreateTwinCouriersFailedTest {
     @Before
     public void setUp() {
         courierData = new CourierData(createCourierData);
-        courierData.createCourierRequest();
+        new CreateCourierRequest(courierData).createCourierRequest();
     }
 
     @Test
@@ -28,7 +29,7 @@ public class CreateTwinCouriersFailedTest {
     public void createTwinCouriersFailed() {
 
         twinCourierData = new CourierData(createCourierData);
-        twinCourierData.createCourierRequest(CreateCourierDataConflict.RESPONSE_SPECIFICATION);
+        new CreateCourierRequest(twinCourierData).createCourierRequest(CreateCourierDataConflict.RESPONSE_SPECIFICATION);
 
     }
 

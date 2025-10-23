@@ -8,6 +8,7 @@ import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import requests.courier.CreateCourierRequest;
 import requests.courier.DeleteCourierRequest;
 import requests.courier.LoginCourierRequest;
 
@@ -19,7 +20,7 @@ public class LoginCourierTest {
     @Before
     public void setUp() {
         courierData = new CourierData(loginCourierData);
-        courierData.createCourierRequest();
+        new CreateCourierRequest(courierData).createCourierRequest();
     }
 
     @Test

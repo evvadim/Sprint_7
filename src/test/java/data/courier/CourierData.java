@@ -36,28 +36,28 @@ public class CourierData {
         this.firstName = null;
     }
 
-    @Step("Create Courier POST Request")
-    private void createCourierRequestAndCheckResponseSpecs(ResponseSpecification specification) {
-
-        Response response = given()
-                .spec(CommonCourierRequest.requestSpecification)
-                .body(createCourierData)
-                .post(Endpoints.CREATE_COURIER);
-
-        if (specification != null) {
-            checkResponseSpecs(response, specification);
-        }
-
-    }
-
-    public void createCourierRequest() {
-        createCourierRequestAndCheckResponseSpecs(null);
-    }
-
-    public void createCourierRequest(ResponseSpecification specification) {
-        createCourierRequestAndCheckResponseSpecs(specification);
-    }
-
+//    @Step("Create Courier POST Request")
+//    private void createCourierRequestAndCheckResponseSpecs(ResponseSpecification specification) {
+//
+//        Response response = given()
+//                .spec(CommonCourierRequest.requestSpecification)
+//                .body(createCourierData)
+//                .post(Endpoints.CREATE_COURIER);
+//
+//        if (specification != null) {
+//            checkResponseSpecs(response, specification);
+//        }
+//
+//    }
+//
+//    public void createCourierRequest() {
+//        createCourierRequestAndCheckResponseSpecs(null);
+//    }
+//
+//    public void createCourierRequest(ResponseSpecification specification) {
+//        createCourierRequestAndCheckResponseSpecs(specification);
+//    }
+//
 //    @Step("Login Courier POST Request")
 //    private Response loginCourierRequestAndCheckResponseSpecs(ResponseSpecification specification) {
 //

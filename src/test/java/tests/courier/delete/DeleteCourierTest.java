@@ -10,6 +10,7 @@ import data.courier.LoginCourierData;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import requests.courier.CreateCourierRequest;
 import requests.courier.DeleteCourierRequest;
 import requests.courier.LoginCourierRequest;
 
@@ -23,7 +24,7 @@ public class DeleteCourierTest {
     public void setUp() {
 
         courierData = new CourierData(createCourierData);
-        courierData.createCourierRequest();
+        new CreateCourierRequest(courierData).createCourierRequest();
 
     }
 

@@ -7,6 +7,7 @@ import data.courier.CourierData;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import requests.courier.CreateCourierRequest;
 import requests.courier.DeleteCourierRequest;
 import requests.courier.LoginCourierRequest;
 
@@ -22,7 +23,7 @@ public class CreateCourierTest {
 
     @Test
     public void createCourierValidDataExpectedOk() {
-        courierData.createCourierRequest(CreateCourierDataSuccess.RESPONSE_SPEC);
+        new CreateCourierRequest(courierData).createCourierRequest(CreateCourierDataSuccess.RESPONSE_SPEC);
     }
 
     @After

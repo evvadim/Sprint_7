@@ -1,6 +1,7 @@
 package requests.courier;
 
 import config.endpoints.Endpoints;
+import data.courier.CourierData;
 import data.courier.CreateCourierData;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
@@ -11,10 +12,10 @@ import static requests.courier.CommonCourierRequest.checkResponseSpecs;
 
 public class CreateCourierRequest {
 
-    private final CreateCourierData createCourierData;
+    private final CourierData courierData;
 
-    public CreateCourierRequest(CreateCourierData createCourierData) {
-        this.createCourierData = createCourierData;
+    public CreateCourierRequest(CourierData courierData) {
+        this.courierData = courierData;
     }
 
     @Step("Create Courier POST Request")
@@ -22,7 +23,7 @@ public class CreateCourierRequest {
 
         Response response = given()
                 .spec(CommonCourierRequest.requestSpecification)
-                .body(createCourierData)
+                .body(courierData)
                 .post(Endpoints.CREATE_COURIER);
 
         if (specification != null) {
