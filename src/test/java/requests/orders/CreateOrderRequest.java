@@ -31,7 +31,7 @@ public class CreateOrderRequest {
         return given()
                 .spec(requestSpecification)
                 .body(createOrderData)
-                .post(Endpoints.CREATE_COURIER);
+                .post(Endpoints.CREATE_ORDER);
     }
 
     @Step("Not Null Response when Order Created Check")

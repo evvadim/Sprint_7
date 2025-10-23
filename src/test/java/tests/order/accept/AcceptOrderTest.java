@@ -4,6 +4,9 @@ import config.Config;
 import data.courier.CourierData;
 import data.courier.CreateCourierData;
 import data.orders.AcceptOrderData;
+import org.junit.After;
+import requests.courier.CreateCourierRequest;
+import requests.courier.DeleteCourierRequest;
 import requests.courier.LoginCourierRequest;
 import requests.orders.AcceptOrderRequest;
 import requests.orders.CreateOrderRequest;
@@ -31,9 +34,12 @@ public class AcceptOrderTest {
         // создадим курьера
         CreateCourierData createCourierData = new CreateCourierData(Config.getUserLogin(), Config.getUserPassword(), Config.getUserFirstName());
         courierData = new CourierData(createCourierData);
+        new CreateCourierRequest(courierData).createCourierRequest();
 
         // авторизуемся чтобы получить его `id`
-        new LoginCourierRequest(courierData).loginCourierRequest();
+        LoginCourierRequest loginCourierRequest = new LoginCourierRequest(courierData);
+        loginCourierRequest.loginCourierRequest();
+        courierData.setId(loginCourierRequest.getId());
 
         // создадим заказ
         CreateOrderData createOrderData = new CreateOrderData(Config.getOrderFirstName(),
@@ -65,4 +71,10 @@ public class AcceptOrderTest {
 
     }
 
+    @After
+    public void tearDown() {
+
+        new DeleteCourierRequest(courierData).deleteCourierRequest();
+
+    }
 }

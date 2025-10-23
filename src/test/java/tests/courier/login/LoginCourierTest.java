@@ -17,6 +17,7 @@ public class LoginCourierTest {
 
     LoginCourierData loginCourierData = new LoginCourierData(Config.getUserLogin(), Config.getUserPassword());
     CourierData courierData;
+    LoginCourierRequest loginCourierRequest;
 
     @Before
     public void setUp() {
@@ -27,7 +28,7 @@ public class LoginCourierTest {
     @Test
     public void loginCourierRequest() {
 
-        LoginCourierRequest loginCourierRequest = new LoginCourierRequest(courierData);
+        loginCourierRequest = new LoginCourierRequest(courierData);
         Response response = loginCourierRequest.loginCourierRequest(LoginCourierDataSuccess.RESPONSE_SPEC);
         LoginCourierDataSuccess loginCourierDataSuccess = (LoginCourierDataSuccess) CommonCourierRequest.extractResponseToObject(response, LoginCourierDataSuccess.class);
         loginCourierRequest.successLoginCourierCheck(loginCourierDataSuccess);
@@ -36,6 +37,7 @@ public class LoginCourierTest {
 
     @After
     public void tearDown() {
+        courierData.setId(loginCourierRequest.getId());
         new DeleteCourierRequest(courierData).deleteCourierRequest();
     }
 

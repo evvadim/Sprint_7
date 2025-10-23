@@ -28,7 +28,9 @@ public class CreateCourierTest {
 
     @After
     public void tearDown() {
-        new LoginCourierRequest(courierData).loginCourierRequest();
+        LoginCourierRequest loginCourierRequest = new LoginCourierRequest(courierData);
+        loginCourierRequest.loginCourierRequest();
+        courierData.setId(loginCourierRequest.getId());
         new DeleteCourierRequest(courierData).deleteCourierRequest();
     }
 }

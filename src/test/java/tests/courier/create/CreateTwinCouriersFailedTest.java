@@ -36,10 +36,14 @@ public class CreateTwinCouriersFailedTest {
     @After
     public void tearDown() {
 
-        new LoginCourierRequest(courierData).loginCourierRequest();
+        LoginCourierRequest loginCourierRequest = new LoginCourierRequest(courierData);
+        loginCourierRequest.loginCourierRequest();
+        courierData.setId(loginCourierRequest.getId());
         new DeleteCourierRequest(courierData).deleteCourierRequest();
 
-        new LoginCourierRequest(twinCourierData).loginCourierRequest();
+        LoginCourierRequest loginTwinCourierRequest = new LoginCourierRequest(twinCourierData);
+        loginTwinCourierRequest.loginCourierRequest();
+        twinCourierData.setId(loginTwinCourierRequest.getId());
         new DeleteCourierRequest(twinCourierData).deleteCourierRequest();
 
     }

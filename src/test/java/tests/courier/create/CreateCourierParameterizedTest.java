@@ -50,7 +50,9 @@ public class CreateCourierParameterizedTest {
 
         // удаляем созданного курьера
         // для этого сначала логинимся чтобы получить `id`
-        new LoginCourierRequest(courierData).loginCourierRequest();
+        LoginCourierRequest loginCourierRequest = new LoginCourierRequest(courierData);
+        loginCourierRequest.loginCourierRequest();
+        courierData.setId(loginCourierRequest.getId());
         new DeleteCourierRequest(courierData).deleteCourierRequest();
 
     }
@@ -72,7 +74,9 @@ public class CreateCourierParameterizedTest {
     @After
     public void tearDown() {
         if (isCourierShouldBeCreated) {
-            new LoginCourierRequest(courierDataParamData).loginCourierRequest();
+            LoginCourierRequest loginCourierRequest = new LoginCourierRequest(courierDataParamData);
+            loginCourierRequest.loginCourierRequest();
+            courierDataParamData.setId(loginCourierRequest.getId());
             new DeleteCourierRequest(courierDataParamData).deleteCourierRequest();
         }
     }

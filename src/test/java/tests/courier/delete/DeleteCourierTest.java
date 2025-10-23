@@ -30,7 +30,9 @@ public class DeleteCourierTest {
 
     @Test
     public void deleteCourierValidDataExpectedOk() {
-        new LoginCourierRequest(courierData).loginCourierRequest();
+        LoginCourierRequest loginCourierRequest = new LoginCourierRequest(courierData);
+        loginCourierRequest.loginCourierRequest();
+        courierData.setId(loginCourierRequest.getId());
         new DeleteCourierRequest(courierData).deleteCourierRequest(DeleteCourierDataSuccess.RESPONSE_SPEC);
     }
 
@@ -38,7 +40,9 @@ public class DeleteCourierTest {
     public void deleteCourierRequestWithoutId() {
 
         // авторизуемся чтобы получить значение `id`
-        new LoginCourierRequest(courierData).loginCourierRequest();
+        LoginCourierRequest loginCourierRequest = new LoginCourierRequest(courierData);
+        loginCourierRequest.loginCourierRequest();
+        courierData.setId(loginCourierRequest.getId());
 
         // бекапим значение `id` для удаления этого курьера в методе @After
         idBackup = courierData.getId();
@@ -58,11 +62,15 @@ public class DeleteCourierTest {
         CourierData courierDataClone = new CourierData(loginCourierData);
 
         // авторизуемся чтобы получить значение свойства `id`
-        new LoginCourierRequest(courierDataClone).loginCourierRequest();
+        LoginCourierRequest loginCourierCloneRequest = new LoginCourierRequest(courierDataClone);
+        loginCourierCloneRequest.loginCourierRequest();
+        courierDataClone.setId(loginCourierCloneRequest.getId());
 
         // удаляем основного курьера
         // перед этим авторизуемся чтобы получить `id`
-        new LoginCourierRequest(courierData).loginCourierRequest();
+        LoginCourierRequest loginCourierRequest = new LoginCourierRequest(courierData);
+        loginCourierRequest.loginCourierRequest();
+        courierDataClone.setId(loginCourierRequest.getId());
         new DeleteCourierRequest(courierData).deleteCourierRequest();
         // таким образом в объекте `courierClone` остались данные учетной записи и значение поля `id` курьера,
         // который был удален из таблицы `Couriers`
