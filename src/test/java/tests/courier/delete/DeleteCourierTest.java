@@ -11,6 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import requests.courier.DeleteCourierRequest;
+import requests.courier.LoginCourierRequest;
 
 public class DeleteCourierTest {
     
@@ -28,7 +29,7 @@ public class DeleteCourierTest {
 
     @Test
     public void deleteCourierValidDataExpectedOk() {
-        courierData.loginCourierRequest();
+        new LoginCourierRequest(courierData).loginCourierRequest();
         new DeleteCourierRequest(courierData).deleteCourierRequest(DeleteCourierDataSuccess.RESPONSE_SPEC);
     }
 
@@ -36,7 +37,7 @@ public class DeleteCourierTest {
     public void deleteCourierRequestWithoutId() {
 
         // авторизуемся чтобы получить значение `id`
-        courierData.loginCourierRequest();
+        new LoginCourierRequest(courierData).loginCourierRequest();
 
         // бекапим значение `id` для удаления этого курьера в методе @After
         idBackup = courierData.getId();
@@ -56,11 +57,11 @@ public class DeleteCourierTest {
         CourierData courierDataClone = new CourierData(loginCourierData);
 
         // авторизуемся чтобы получить значение свойства `id`
-        courierDataClone.loginCourierRequest();
+        new LoginCourierRequest(courierDataClone).loginCourierRequest();
 
         // удаляем основного курьера
         // перед этим авторизуемся чтобы получить `id`
-        courierData.loginCourierRequest();
+        new LoginCourierRequest(courierData).loginCourierRequest();
         new DeleteCourierRequest(courierData).deleteCourierRequest();
         // таким образом в объекте `courierClone` остались данные учетной записи и значение поля `id` курьера,
         // который был удален из таблицы `Couriers`

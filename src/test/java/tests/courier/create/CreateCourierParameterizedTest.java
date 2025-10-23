@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import requests.courier.DeleteCourierRequest;
+import requests.courier.LoginCourierRequest;
 
 @RunWith(Parameterized.class)
 public class CreateCourierParameterizedTest {
@@ -48,7 +49,7 @@ public class CreateCourierParameterizedTest {
 
         // удаляем созданного курьера
         // для этого сначала логинимся чтобы получить `id`
-        courierData.loginCourierRequest();
+        new LoginCourierRequest(courierData).loginCourierRequest();
         new DeleteCourierRequest(courierData).deleteCourierRequest();
 
     }
@@ -70,7 +71,7 @@ public class CreateCourierParameterizedTest {
     @After
     public void tearDown() {
         if (isCourierShouldBeCreated) {
-            courierDataParamData.loginCourierRequest();
+            new LoginCourierRequest(courierDataParamData).loginCourierRequest();
             new DeleteCourierRequest(courierDataParamData).deleteCourierRequest();
         }
     }

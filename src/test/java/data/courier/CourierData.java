@@ -58,30 +58,30 @@ public class CourierData {
         createCourierRequestAndCheckResponseSpecs(specification);
     }
 
-    @Step("Login Courier POST Request")
-    private Response loginCourierRequestAndCheckResponseSpecs(ResponseSpecification specification) {
-
-        Response response = given()
-                .spec(CommonCourierRequest.requestSpecification)
-                .body(loginCourierData)
-                .post(Endpoints.LOGIN_COURIER);
-        this.id = response.then().extract().as(LoginCourierDataSuccess.class).getId();
-
-        if (specification != null) {
-            checkResponseSpecs(response, specification);
-        }
-
-        return response;
-    }
-
-    public void loginCourierRequest() {
-        loginCourierRequestAndCheckResponseSpecs(null);
-    }
-
-    public Response loginCourierRequest(ResponseSpecification specification) {
-        return loginCourierRequestAndCheckResponseSpecs(specification);
-    }
-
+//    @Step("Login Courier POST Request")
+//    private Response loginCourierRequestAndCheckResponseSpecs(ResponseSpecification specification) {
+//
+//        Response response = given()
+//                .spec(CommonCourierRequest.requestSpecification)
+//                .body(loginCourierData)
+//                .post(Endpoints.LOGIN_COURIER);
+//        this.id = response.then().extract().as(LoginCourierDataSuccess.class).getId();
+//
+//        if (specification != null) {
+//            checkResponseSpecs(response, specification);
+//        }
+//
+//        return response;
+//    }
+//
+//    public void loginCourierRequest() {
+//        loginCourierRequestAndCheckResponseSpecs(null);
+//    }
+//
+//    public Response loginCourierRequest(ResponseSpecification specification) {
+//        return loginCourierRequestAndCheckResponseSpecs(specification);
+//    }
+//
 //    @Step("Delete Courier DELETE Request")
 //    private Response deleteCourierRequestAndCheckResponseSpecs(ResponseSpecification specification) {
 //

@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import requests.courier.DeleteCourierRequest;
+import requests.courier.LoginCourierRequest;
 
 @RunWith(Parameterized.class)
 public class LoginCourierParameterizedTest {
@@ -58,17 +59,19 @@ public class LoginCourierParameterizedTest {
         CourierData loginCourierDataParamData = new CourierData(loginCourierData);
         boolean isIncompleteLoginData = (loginCourierData.getLogin() == null) || (loginCourierData.getPassword() == null) || (loginCourierData.getPassword().isEmpty());
 
+        LoginCourierRequest loginCourierRequest = new LoginCourierRequest(courierData);
+
         if (isIncompleteLoginData) {
-            loginCourierDataParamData.loginCourierRequest(LoginCourierDataBadRequest.RESPONSE_SPEC);
+            loginCourierRequest.loginCourierRequest(LoginCourierDataBadRequest.RESPONSE_SPEC);
         } else {
-            loginCourierDataParamData.loginCourierRequest(LoginCourierDataNotFound.RESPONSE_SPEC);
+            loginCourierRequest.loginCourierRequest(LoginCourierDataNotFound.RESPONSE_SPEC);
         }
 
     }
 
     @After
     public void tearDown() {
-        courierData.loginCourierRequest();
+        new LoginCourierRequest(courierData).loginCourierRequest();
         new DeleteCourierRequest(courierData).deleteCourierRequest();
     }
 }

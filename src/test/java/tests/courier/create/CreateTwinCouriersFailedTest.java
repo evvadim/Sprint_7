@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import requests.courier.DeleteCourierRequest;
+import requests.courier.LoginCourierRequest;
 
 public class CreateTwinCouriersFailedTest {
 
@@ -34,10 +35,10 @@ public class CreateTwinCouriersFailedTest {
     @After
     public void tearDown() {
 
-        courierData.loginCourierRequest();
+        new LoginCourierRequest(courierData).loginCourierRequest();
         new DeleteCourierRequest(courierData).deleteCourierRequest();
 
-        twinCourierData.loginCourierRequest();
+        new LoginCourierRequest(twinCourierData).loginCourierRequest();
         new DeleteCourierRequest(twinCourierData).deleteCourierRequest();
 
     }

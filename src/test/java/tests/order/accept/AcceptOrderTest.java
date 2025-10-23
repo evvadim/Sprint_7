@@ -4,6 +4,7 @@ import config.Config;
 import data.courier.CourierData;
 import data.courier.CreateCourierData;
 import data.orders.AcceptOrderData;
+import requests.courier.LoginCourierRequest;
 import requests.orders.AcceptOrderRequest;
 import requests.orders.CreateOrderRequest;
 import data.orders.GetOrderByTrackData;
@@ -32,7 +33,7 @@ public class AcceptOrderTest {
         courierData = new CourierData(createCourierData);
 
         // авторизуемся чтобы получить его `id`
-        courierData.loginCourierRequest();
+        new LoginCourierRequest(courierData).loginCourierRequest();
 
         // создадим заказ
         CreateOrderData createOrderData = new CreateOrderData(Config.getOrderFirstName(),

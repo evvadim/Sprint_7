@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import requests.courier.DeleteCourierRequest;
+import requests.courier.LoginCourierRequest;
 
 public class CreateCourierTest {
 
@@ -26,7 +27,7 @@ public class CreateCourierTest {
 
     @After
     public void tearDown() {
-        courierData.loginCourierRequest();
+        new LoginCourierRequest(courierData).loginCourierRequest();
         new DeleteCourierRequest(courierData).deleteCourierRequest();
     }
 }
