@@ -2,7 +2,6 @@ package requests.courier;
 
 import config.endpoints.Endpoints;
 import data.courier.CourierData;
-import data.courier.CreateCourierData;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import io.restassured.specification.ResponseSpecification;

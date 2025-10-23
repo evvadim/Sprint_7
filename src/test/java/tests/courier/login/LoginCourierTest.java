@@ -8,6 +8,7 @@ import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import requests.courier.CommonCourierRequest;
 import requests.courier.CreateCourierRequest;
 import requests.courier.DeleteCourierRequest;
 import requests.courier.LoginCourierRequest;
@@ -28,7 +29,7 @@ public class LoginCourierTest {
 
         LoginCourierRequest loginCourierRequest = new LoginCourierRequest(courierData);
         Response response = loginCourierRequest.loginCourierRequest(LoginCourierDataSuccess.RESPONSE_SPEC);
-        LoginCourierDataSuccess loginCourierDataSuccess = (LoginCourierDataSuccess) courierData.extractResponseToObject(response, LoginCourierDataSuccess.class);
+        LoginCourierDataSuccess loginCourierDataSuccess = (LoginCourierDataSuccess) CommonCourierRequest.extractResponseToObject(response, LoginCourierDataSuccess.class);
         loginCourierRequest.successLoginCourierCheck(loginCourierDataSuccess);
 
     }

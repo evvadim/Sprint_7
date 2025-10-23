@@ -20,6 +20,9 @@ public class CommonCourierRequest {
         response.then().spec(responseSpecification);
     }
 
-
+    @Step("Cast response to Class<T> and return Object")
+    public static <T> Object extractResponseToObject(Response response, Class<T> anyClass) {
+        return response.body().as(anyClass);
+    }
 
 }
