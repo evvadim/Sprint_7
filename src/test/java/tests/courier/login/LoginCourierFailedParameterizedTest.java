@@ -16,7 +16,7 @@ import requests.courier.DeleteCourierRequest;
 import requests.courier.LoginCourierRequest;
 
 @RunWith(Parameterized.class)
-public class LoginCourierParameterizedTest {
+public class LoginCourierFailedParameterizedTest {
 
     private final LoginCourierData loginCourierWithValidData = new LoginCourierData(Config.getUserLogin(), Config.getUserPassword());
     private CourierData courierData;
@@ -24,8 +24,8 @@ public class LoginCourierParameterizedTest {
     // переменные параметризации
     private final LoginCourierData loginCourierData;
 
-    public LoginCourierParameterizedTest(String login,
-                                         String password) {
+    public LoginCourierFailedParameterizedTest(String login,
+                                               String password) {
 
         this.loginCourierData = new LoginCourierData(login, password);
 
@@ -60,7 +60,7 @@ public class LoginCourierParameterizedTest {
         CourierData loginCourierDataParamData = new CourierData(loginCourierData);
         boolean isIncompleteLoginData = (loginCourierData.getLogin() == null) || (loginCourierData.getPassword() == null) || (loginCourierData.getPassword().isEmpty());
 
-        LoginCourierRequest loginCourierRequest = new LoginCourierRequest(courierData);
+        LoginCourierRequest loginCourierRequest = new LoginCourierRequest(loginCourierDataParamData);
 
         if (isIncompleteLoginData) {
             loginCourierRequest.loginCourierRequest(LoginCourierDataBadRequest.RESPONSE_SPEC);
