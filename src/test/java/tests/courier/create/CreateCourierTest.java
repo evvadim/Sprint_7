@@ -1,31 +1,32 @@
 package tests.courier.create;
 
 import config.Config;
-import data.courier.create.CreateCourierDataRequest;
+import data.courier.CreateCourierData;
 import data.courier.create.CreateCourierDataSuccess;
-import data.courier.Courier;
+import data.courier.CourierData;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import requests.courier.DeleteCourierRequest;
 
 public class CreateCourierTest {
 
-    CreateCourierDataRequest createCourierDataRequest = new CreateCourierDataRequest(Config.getUserLogin(), Config.getUserPassword(), Config.getUserFirstName());
-    Courier courier;
+    CreateCourierData createCourierData = new CreateCourierData(Config.getUserLogin(), Config.getUserPassword(), Config.getUserFirstName());
+    CourierData courierData;
 
     @Before
     public void setUp() {
-        courier = new Courier(createCourierDataRequest);
+        courierData = new CourierData(createCourierData);
     }
 
     @Test
     public void createCourierValidDataExpectedOk() {
-        courier.createCourierRequest(CreateCourierDataSuccess.RESPONSE_SPEC);
+        courierData.createCourierRequest(CreateCourierDataSuccess.RESPONSE_SPEC);
     }
 
     @After
     public void tearDown() {
-        courier.loginCourierRequest();
-        courier.deleteCourierRequest();
+        courierData.loginCourierRequest();
+        new DeleteCourierRequest(courierData).deleteCourierRequest();
     }
 }

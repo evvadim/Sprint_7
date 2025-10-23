@@ -1,43 +1,44 @@
 package tests.courier.create;
 
 import config.Config;
-import data.courier.create.CreateCourierDataRequest;
+import data.courier.CreateCourierData;
 import data.courier.create.CreateCourierDataConflict;
-import data.courier.Courier;
+import data.courier.CourierData;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import requests.courier.DeleteCourierRequest;
 
 public class CreateTwinCouriersFailedTest {
 
-    CreateCourierDataRequest createCourierDataRequest = new CreateCourierDataRequest(Config.getUserLogin(), Config.getUserPassword(), Config.getUserFirstName());
-    Courier courier;
-    Courier twinCourier;
+    CreateCourierData createCourierData = new CreateCourierData(Config.getUserLogin(), Config.getUserPassword(), Config.getUserFirstName());
+    CourierData courierData;
+    CourierData twinCourierData;
 
     @Before
     public void setUp() {
-        courier = new Courier(createCourierDataRequest);
-        courier.createCourierRequest();
+        courierData = new CourierData(createCourierData);
+        courierData.createCourierRequest();
     }
 
     @Test
     @DisplayName("Negative Twin Couriers Create test")
     public void createTwinCouriersFailed() {
 
-        twinCourier = new Courier(createCourierDataRequest);
-        twinCourier.createCourierRequest(CreateCourierDataConflict.RESPONSE_SPECIFICATION);
+        twinCourierData = new CourierData(createCourierData);
+        twinCourierData.createCourierRequest(CreateCourierDataConflict.RESPONSE_SPECIFICATION);
 
     }
 
     @After
     public void tearDown() {
 
-        courier.loginCourierRequest();
-        courier.deleteCourierRequest();
+        courierData.loginCourierRequest();
+        new DeleteCourierRequest(courierData).deleteCourierRequest();
 
-        twinCourier.loginCourierRequest();
-        twinCourier.deleteCourierRequest();
+        twinCourierData.loginCourierRequest();
+        new DeleteCourierRequest(twinCourierData).deleteCourierRequest();
 
     }
 

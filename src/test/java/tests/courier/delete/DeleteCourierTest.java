@@ -1,79 +1,80 @@
 package tests.courier.delete;
 
 import config.Config;
-import data.courier.Courier;
-import data.courier.create.CreateCourierDataRequest;
+import data.courier.CourierData;
+import data.courier.CreateCourierData;
 import data.courier.delete.DeleteCourierDataBadRequest;
 import data.courier.delete.DeleteCourierDataSuccess;
 import data.courier.delete.DeleteCourierDataNotFound;
-import data.courier.login.LoginCourierDataRequest;
+import data.courier.LoginCourierData;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import requests.courier.DeleteCourierRequest;
 
 public class DeleteCourierTest {
     
-    CreateCourierDataRequest createCourierDataRequest = new CreateCourierDataRequest(Config.getUserLogin(), Config.getUserPassword(), Config.getUserFirstName());
-    Courier courier;
+    CreateCourierData createCourierData = new CreateCourierData(Config.getUserLogin(), Config.getUserPassword(), Config.getUserFirstName());
+    CourierData courierData;
     Integer idBackup;
 
     @Before
     public void setUp() {
 
-        courier = new Courier(createCourierDataRequest);
-        courier.createCourierRequest();
+        courierData = new CourierData(createCourierData);
+        courierData.createCourierRequest();
 
     }
 
     @Test
     public void deleteCourierValidDataExpectedOk() {
-        courier.loginCourierRequest();
-        courier.deleteCourierRequest(DeleteCourierDataSuccess.RESPONSE_SPEC);
+        courierData.loginCourierRequest();
+        new DeleteCourierRequest(courierData).deleteCourierRequest(DeleteCourierDataSuccess.RESPONSE_SPEC);
     }
 
     @Test
     public void deleteCourierRequestWithoutId() {
 
         // авторизуемся чтобы получить значение `id`
-        courier.loginCourierRequest();
+        courierData.loginCourierRequest();
 
         // бекапим значение `id` для удаления этого курьера в методе @After
-        idBackup = courier.getId();
+        idBackup = courierData.getId();
 
         // устанавливаем значение `id` равное `null`
-        courier.setId(null);
+        courierData.setId(null);
 
         // пытаемся удалить созданного курьера
-        courier.deleteCourierRequest(DeleteCourierDataBadRequest.RESPONSE_SPEC);
+        new DeleteCourierRequest(courierData).deleteCourierRequest(DeleteCourierDataBadRequest.RESPONSE_SPEC);
     }
 
     @Test
     public void deleteCourierRequestIdNotFound() {
 
         // создадим объект курьера-клона с такими же учетными данными
-        LoginCourierDataRequest loginCourierDataRequest = new LoginCourierDataRequest(Config.getUserLogin(), Config.getUserPassword());
-        Courier courierClone = new Courier(loginCourierDataRequest);
+        LoginCourierData loginCourierData = new LoginCourierData(Config.getUserLogin(), Config.getUserPassword());
+        CourierData courierDataClone = new CourierData(loginCourierData);
 
         // авторизуемся чтобы получить значение свойства `id`
-        courierClone.loginCourierRequest();
+        courierDataClone.loginCourierRequest();
 
         // удаляем основного курьера
         // перед этим авторизуемся чтобы получить `id`
-        courier.loginCourierRequest();
-        courier.deleteCourierRequest();
+        courierData.loginCourierRequest();
+        new DeleteCourierRequest(courierData).deleteCourierRequest();
         // таким образом в объекте `courierClone` остались данные учетной записи и значение поля `id` курьера,
         // который был удален из таблицы `Couriers`
 
         // пытаемся удалить курьера с `id`, которого уже не существует
-        courierClone.deleteCourierRequest(DeleteCourierDataNotFound.RESPONSE_SPEC);
+        new DeleteCourierRequest(courierDataClone).deleteCourierRequest(DeleteCourierDataNotFound.RESPONSE_SPEC);
 
     }
 
     @After
     public void tearDown() {
         if (idBackup != null) {
-            courier.setId(idBackup);
-            courier.deleteCourierRequest();
+            courierData.setId(idBackup);
+            new DeleteCourierRequest(courierData).deleteCourierRequest();
         }
     }
 }

@@ -2,29 +2,30 @@ package tests.courier.create;
 
 import config.Config;
 import data.courier.create.CreateCourierDataBadRequest;
-import data.courier.create.CreateCourierDataRequest;
+import data.courier.CreateCourierData;
 import data.courier.create.CreateCourierDataSuccess;
-import data.courier.Courier;
+import data.courier.CourierData;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import requests.courier.DeleteCourierRequest;
 
 @RunWith(Parameterized.class)
 public class CreateCourierParameterizedTest {
 
-    private final CreateCourierDataRequest createCourierWithValidData = new CreateCourierDataRequest(Config.getUserLogin(), Config.getUserPassword(), Config.getUserFirstName());
-    private Courier courierParamData;
+    private final CreateCourierData createCourierWithValidData = new CreateCourierData(Config.getUserLogin(), Config.getUserPassword(), Config.getUserFirstName());
+    private CourierData courierDataParamData;
 
     // переменные для параметризации
-    private final CreateCourierDataRequest createCourierDataRequest;
+    private final CreateCourierData createCourierData;
     private final boolean isCourierShouldBeCreated;
 
     public CreateCourierParameterizedTest(String login, String password, String firstName, boolean isCourierShouldBeCreated) {
         this.isCourierShouldBeCreated = isCourierShouldBeCreated;
-        this.createCourierDataRequest = new CreateCourierDataRequest(login, password, firstName);
+        this.createCourierData = new CreateCourierData(login, password, firstName);
     }
 
     @Parameterized.Parameters(name = "Testing Data for CreateCourier. Set {index}.")
@@ -42,13 +43,13 @@ public class CreateCourierParameterizedTest {
         // проверяем возможность создания курьера с валидными тестовыми данными
 
         // пытаемся создать курьера
-        Courier courier = new Courier(createCourierWithValidData);
-        courier.createCourierRequest();
+        CourierData courierData = new CourierData(createCourierWithValidData);
+        courierData.createCourierRequest();
 
         // удаляем созданного курьера
         // для этого сначала логинимся чтобы получить `id`
-        courier.loginCourierRequest();
-        courier.deleteCourierRequest();
+        courierData.loginCourierRequest();
+        new DeleteCourierRequest(courierData).deleteCourierRequest();
 
     }
 
@@ -56,12 +57,12 @@ public class CreateCourierParameterizedTest {
     @DisplayName("Create Courier test. Positive with required fields, Negative without one of required fields.")
     public void createCourierWithData() {
 
-        courierParamData = new Courier(createCourierDataRequest);
+        courierDataParamData = new CourierData(createCourierData);
 
         if (isCourierShouldBeCreated) {
-            courierParamData.createCourierRequest(CreateCourierDataSuccess.RESPONSE_SPEC);
+            courierDataParamData.createCourierRequest(CreateCourierDataSuccess.RESPONSE_SPEC);
         } else {
-            courierParamData.createCourierRequest(CreateCourierDataBadRequest.RESPONSE_SPEC);
+            courierDataParamData.createCourierRequest(CreateCourierDataBadRequest.RESPONSE_SPEC);
         }
 
     }
@@ -69,8 +70,8 @@ public class CreateCourierParameterizedTest {
     @After
     public void tearDown() {
         if (isCourierShouldBeCreated) {
-            courierParamData.loginCourierRequest();
-            courierParamData.deleteCourierRequest();
+            courierDataParamData.loginCourierRequest();
+            new DeleteCourierRequest(courierDataParamData).deleteCourierRequest();
         }
     }
 

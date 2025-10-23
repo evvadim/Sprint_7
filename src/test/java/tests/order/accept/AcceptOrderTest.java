@@ -1,8 +1,8 @@
 package tests.order.accept;
 
 import config.Config;
-import data.courier.Courier;
-import data.courier.create.CreateCourierDataRequest;
+import data.courier.CourierData;
+import data.courier.CreateCourierData;
 import data.orders.AcceptOrderData;
 import requests.orders.AcceptOrderRequest;
 import requests.orders.CreateOrderRequest;
@@ -21,18 +21,18 @@ import java.util.List;
 public class AcceptOrderTest {
 
     CreateOrderDataSuccess createOrderDataSuccess;
-    Courier courier;
+    CourierData courierData;
     GetOrderByTrackDataSuccess getOrderByTrackDataSuccess;
 
     @Before
     public void setUp() {
 
         // создадим курьера
-        CreateCourierDataRequest createCourierDataRequest = new CreateCourierDataRequest(Config.getUserLogin(), Config.getUserPassword(), Config.getUserFirstName());
-        courier = new Courier(createCourierDataRequest);
+        CreateCourierData createCourierData = new CreateCourierData(Config.getUserLogin(), Config.getUserPassword(), Config.getUserFirstName());
+        courierData = new CourierData(createCourierData);
 
         // авторизуемся чтобы получить его `id`
-        courier.loginCourierRequest();
+        courierData.loginCourierRequest();
 
         // создадим заказ
         CreateOrderData createOrderData = new CreateOrderData(Config.getOrderFirstName(),
@@ -57,7 +57,7 @@ public class AcceptOrderTest {
     @Test
     public void acceptOrder() {
 
-        AcceptOrderData acceptOrderData = new AcceptOrderData(getOrderByTrackDataSuccess.getOrder().getId(), courier.getId());
+        AcceptOrderData acceptOrderData = new AcceptOrderData(getOrderByTrackDataSuccess.getOrder().getId(), courierData.getId());
         AcceptOrderRequest acceptOrderRequest = new AcceptOrderRequest(acceptOrderData);
         Response response = acceptOrderRequest.acceptOrderRequest();
         acceptOrderRequest.checkResponseSpecs(response, AcceptOrderDataSuccess.RESPONSE_SPEC);

@@ -1,37 +1,40 @@
 package tests.courier.login;
 
 import config.Config;
-import data.courier.Courier;
-import data.courier.login.LoginCourierDataRequest;
+import data.courier.CourierData;
+import data.courier.LoginCourierData;
 import data.courier.login.LoginCourierDataSuccess;
 import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import requests.courier.DeleteCourierRequest;
+import requests.courier.LoginCourierRequest;
 
 public class LoginCourierTest {
 
-    LoginCourierDataRequest loginCourierDataRequest = new LoginCourierDataRequest(Config.getUserLogin(), Config.getUserPassword());
-    Courier courier;
+    LoginCourierData loginCourierData = new LoginCourierData(Config.getUserLogin(), Config.getUserPassword());
+    CourierData courierData;
 
     @Before
     public void setUp() {
-        courier = new Courier(loginCourierDataRequest);
-        courier.createCourierRequest();
+        courierData = new CourierData(loginCourierData);
+        courierData.createCourierRequest();
     }
 
     @Test
     public void loginCourierRequest() {
 
-        Response response = courier.loginCourierRequest(LoginCourierDataSuccess.RESPONSE_SPEC);
-        LoginCourierDataSuccess loginCourierDataSuccess = (LoginCourierDataSuccess) courier.extractResponseToObject(response, LoginCourierDataSuccess.class);
-        courier.successLoginCourierCheck(loginCourierDataSuccess);
+        LoginCourierRequest loginCourierRequest = new LoginCourierRequest(courierData);
+        Response response = loginCourierRequest.loginCourierRequest(LoginCourierDataSuccess.RESPONSE_SPEC);
+        LoginCourierDataSuccess loginCourierDataSuccess = (LoginCourierDataSuccess) courierData.extractResponseToObject(response, LoginCourierDataSuccess.class);
+        loginCourierRequest.successLoginCourierCheck(loginCourierDataSuccess);
 
     }
 
     @After
     public void tearDown() {
-        courier.deleteCourierRequest();
+        new DeleteCourierRequest(courierData).deleteCourierRequest();
     }
 
 }

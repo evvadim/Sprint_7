@@ -1,16 +1,18 @@
-package data.courier.login;
+package data.courier;
 
-public class LoginCourierDataRequest {
+public class CreateCourierData {
 
     private String login;
     private String password;
+    private String firstName;
 
-    public LoginCourierDataRequest(String login, String password) {
+    public CreateCourierData(String login, String password, String firstName) {
         this.login = login;
         this.password = password;
+        this.firstName = firstName;
     }
 
-    public LoginCourierDataRequest() {
+    public CreateCourierData() {
     }
 
     public String getLogin() {
@@ -27,6 +29,14 @@ public class LoginCourierDataRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
 }

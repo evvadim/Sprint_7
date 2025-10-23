@@ -1,30 +1,31 @@
 package tests.courier.login;
 
 import config.Config;
-import data.courier.Courier;
+import data.courier.CourierData;
 import data.courier.login.LoginCourierDataBadRequest;
 import data.courier.login.LoginCourierDataNotFound;
-import data.courier.login.LoginCourierDataRequest;
+import data.courier.LoginCourierData;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import requests.courier.DeleteCourierRequest;
 
 @RunWith(Parameterized.class)
 public class LoginCourierParameterizedTest {
 
-    private final LoginCourierDataRequest loginCourierWithValidData = new LoginCourierDataRequest(Config.getUserLogin(), Config.getUserPassword());
-    private Courier courier;
+    private final LoginCourierData loginCourierWithValidData = new LoginCourierData(Config.getUserLogin(), Config.getUserPassword());
+    private CourierData courierData;
 
     // переменные параметризации
-    private final LoginCourierDataRequest loginCourierDataRequest;
+    private final LoginCourierData loginCourierData;
 
     public LoginCourierParameterizedTest(String login,
                                          String password) {
 
-        this.loginCourierDataRequest = new LoginCourierDataRequest(login, password);
+        this.loginCourierData = new LoginCourierData(login, password);
 
     }
 
@@ -45,8 +46,8 @@ public class LoginCourierParameterizedTest {
         // проверяем возможность создания курьера с валидными тестовыми данными
 
         // пытаемся создать курьера
-        courier = new Courier(loginCourierWithValidData);
-        courier.createCourierRequest();
+        courierData = new CourierData(loginCourierWithValidData);
+        courierData.createCourierRequest();
 
     }
 
@@ -54,20 +55,20 @@ public class LoginCourierParameterizedTest {
     @DisplayName("Negative Login Courier test.")
     public void loginCourierWithData() {
 
-        Courier loginCourierParamData = new Courier(loginCourierDataRequest);
-        boolean isIncompleteLoginData = (loginCourierDataRequest.getLogin() == null) || (loginCourierDataRequest.getPassword() == null) || (loginCourierDataRequest.getPassword().isEmpty());
+        CourierData loginCourierDataParamData = new CourierData(loginCourierData);
+        boolean isIncompleteLoginData = (loginCourierData.getLogin() == null) || (loginCourierData.getPassword() == null) || (loginCourierData.getPassword().isEmpty());
 
         if (isIncompleteLoginData) {
-            loginCourierParamData.loginCourierRequest(LoginCourierDataBadRequest.RESPONSE_SPEC);
+            loginCourierDataParamData.loginCourierRequest(LoginCourierDataBadRequest.RESPONSE_SPEC);
         } else {
-            loginCourierParamData.loginCourierRequest(LoginCourierDataNotFound.RESPONSE_SPEC);
+            loginCourierDataParamData.loginCourierRequest(LoginCourierDataNotFound.RESPONSE_SPEC);
         }
 
     }
 
     @After
     public void tearDown() {
-        courier.loginCourierRequest();
-        courier.deleteCourierRequest();
+        courierData.loginCourierRequest();
+        new DeleteCourierRequest(courierData).deleteCourierRequest();
     }
 }
