@@ -1,0 +1,42 @@
+package data.orders.create;
+
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.specification.ResponseSpecification;
+import org.hamcrest.Matcher;
+
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.notNullValue;
+
+public class CreateOrderDataSuccess {
+
+    private Integer track;
+
+    // ожидаем получить
+    private static final Integer EXPECTED_CODE = 201;
+    private static final String EXPECTED_STATUS_LINE = "HTTP/1.1 " + EXPECTED_CODE + " Created";
+    public static final Matcher<Object> EXPECTED_NOT_NULL = notNullValue();
+
+
+    // спецификация ответа
+    public static final ResponseSpecification RESPONSE_SPEC = new ResponseSpecBuilder()
+            .expectStatusCode(EXPECTED_CODE)
+            .expectStatusLine(EXPECTED_STATUS_LINE)
+            .expectBody(containsString("track"))
+            .build();
+
+    public CreateOrderDataSuccess(Integer track) {
+        this.track = track;
+    }
+
+    public CreateOrderDataSuccess() {
+    }
+
+    public Integer getTrack() {
+        return track;
+    }
+
+    public void setTrack(Integer track) {
+        this.track = track;
+    }
+
+}
